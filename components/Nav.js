@@ -5,13 +5,13 @@ export default class Nav extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.function(1)}>
                     <Image 
                         source={require('../assets/star.png')}
                         style={styles.img}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.function(2)}>
                     <Image 
                         source={require('../assets/menu.png')}
                         style={styles.img}

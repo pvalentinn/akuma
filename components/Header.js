@@ -8,7 +8,7 @@ export default class Header extends Component {
         return(
             <View style={styles.div}>
                 <Image source={require('../assets/akumascans.png')} style={{flex: 0.65, width: '100%'}}></Image>
-                <Nav />
+                <Nav function={this.props.function}/>
             </View>
         )
     }

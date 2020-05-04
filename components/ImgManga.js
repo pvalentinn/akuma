@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import searchManga from '../API/searchManga';
 
 export default class ImgManga extends Component{
     render() {
         let mangas = [...this.props.data];
         return (
             <View style={styles.div}>
-                <TouchableOpacity style={styles.manga}>
+                <TouchableOpacity style={styles.manga} onPress={async () => this.props.showManga(await searchManga(mangas[0].name))}>
                     <Image source={{uri: mangas[0].src}} style={styles.img}></Image>
                     <View style={styles.divText}>
                         <Text style={styles.text}>{mangas[0].name}</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.manga}>
+                <TouchableOpacity style={styles.manga} onPress={async () => this.props.showManga(await searchManga(mangas[1].name))}>
                     <Image source={{uri: mangas[1].src}} style={styles.img}></Image>
                     <View style={styles.divText}>
                         <Text style={styles.text}>{mangas[1].name}</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.manga}>
+                <TouchableOpacity style={styles.manga} onPress={async () => this.props.showManga(await searchManga(mangas[2].name))}>
                     <Image source={{uri: mangas[2].src}} style={styles.img}></Image>
                     <View style={styles.divText}>
                         <Text style={styles.text}>{mangas[2].name}</Text>
