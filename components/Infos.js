@@ -5,7 +5,7 @@ export default class Infos extends Component {
     render() {
         let manga = this.props.manga;
         return (
-            <Modal transparent={true} visible={this.props.show}>
+            <Modal transparent={true} visible={this.props.show} style={{position: 'absolute', top: 0}}>
                 <View style={s.container}>
                     <View style={s.content}>
                         <TouchableOpacity style={s.button} onPress={() => this.props.display()}>
@@ -22,7 +22,8 @@ export default class Infos extends Component {
 const s = StyleSheet.create({
     container: {
         backgroundColor: '#000000aa',
-        flex: 1
+        flex: 1.1,
+        justifyContent: "center",
     },
     content: {
         backgroundColor: '#fff', 
