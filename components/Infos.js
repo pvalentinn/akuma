@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Modal, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Modal, TouchableOpacity, Image, SafeAreaView, StatusBar } from 'react-native';
+
 
 export default class Infos extends Component {
     render() {
         let manga = this.props.manga;
         return (
-            <Modal transparent={true} visible={this.props.show} style={{position: 'absolute', top: 0}}>
+            <Modal transparent={true} visible={this.props.show} >
                 <View style={s.container}>
                     <View style={s.content}>
                         <TouchableOpacity style={s.button} onPress={() => this.props.display()}>
@@ -22,7 +23,7 @@ export default class Infos extends Component {
 const s = StyleSheet.create({
     container: {
         backgroundColor: '#000000aa',
-        flex: 1.1,
+        flex: 1,
         justifyContent: "center",
     },
     content: {

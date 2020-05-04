@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import Infos from './Infos';
+import Constants from "expo-constants";
 
 export default class Collection extends Component {
     constructor(props) {

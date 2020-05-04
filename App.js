@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 import loadPopular from './API/popular';
 import Collection from './components/Collection';
 
+
 export default class App extends Component {
   constructor(props) {
       super(props);
