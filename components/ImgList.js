@@ -12,7 +12,7 @@ export default class ImgList extends Component {
                         <>
                             {
                             (() => {
-                                if((i+1)%3 === 0) return <ImgManga data={ [this.props.data[i-2], this.props.data[i-1], this.props.data[i]] } showManga={this.props.showManga}/>
+                                if((i+1)%3 === 0) return <ImgManga data={ [this.props.data[i-2], this.props.data[i-1], this.props.data[i]] } showManga={this.props.showManga} navigation={this.props.navigation}/>
                                 else return <></>
                             })()
                             }

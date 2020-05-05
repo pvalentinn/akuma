@@ -10,7 +10,7 @@ import TextList from './components/TextList';
 import Header from './components/Header';
 import LoadingScreen from './components/LoadingScreen';
 import loadPopular from './API/popular';
-import Collection from './components/Collection';
+import Manga from './screens/Manga';
 import ImgList from './components/ImgList';
 
 const colors = require('./colors.json').default
@@ -38,7 +38,8 @@ export default class App extends Component {
     async showManga(manga, navigation) {
       await this.awaitSetState({display: false});
       await this.awaitSetState({manga: manga})
-      await this.awaitSetState({display: 3});
+      await this.awaitSetState({display: 1});
+      navigation.navigate('Populaires', {screen: 'Manga'})
     }
   
     awaitSetState(newChange) {
@@ -49,26 +50,31 @@ export default class App extends Component {
   
     render() {
         
-        // let imgScreen = ( { navigation, route } ) => (
-        //     <View style={styles.container}>
-        //         <Stack.Navigator>
-        //             <Stack.Screen name={'ImgList'} component={Populars} initialParams={
-        //                 {
-        //                     imgList: this.state.imgList, 
-        //                     showManga: this.showManga ,
-        //                     navigation: navigation
-        //                 }
-        //             }/>
-        //             <Stack.Screen name={'Manga'} component={() => Collection(this.state.manga, navigation)}/>
-        //         </Stack.Navigator>
-        //     </View>
-        // );
-
         let imgScreen = ( { navigation, route } ) => (
             <View style={styles.container}>
-                <ImgList data={this.state.imgList} showManga={this.showManga}/>
+                <Stack.Navigator>
+                    <Stack.Screen name={'ImgList'} component={Populars} initialParams={
+                        {
+                            imgList: this.state.imgList, 
+                            showManga: this.showManga ,
+                            navigation: navigation
+                        }
+                    }/>
+                    <Stack.Screen name={'Manga'} component={Manga} initialParams={
+                        {
+                            manga: this.state.manga,
+                            navigation: navigation
+                        } 
+                    }/>
+                </Stack.Navigator>
             </View>
         );
+
+        // let imgScreen = ( { navigation, route } ) => (
+        //     <View style={styles.container}>
+        //         <ImgList data={this.state.imgList} showManga={this.showManga}/>
+        //     </View>
+        // );
 
         let textScreen = () => (
             <View style={styles.container}>
@@ -77,7 +83,7 @@ export default class App extends Component {
         );
 
         if(!this.state.display) return <LoadingScreen />
-        if(this.state.display == 3) return <Collection manga={this.state.manga}/>
+        // if(this.state.display == 3) return <Collection manga={this.state.manga}/>
         else return (
             <View style={styles.container}>
                 <NavigationContainer theme={

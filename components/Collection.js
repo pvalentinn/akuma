@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView, Button } from 'react-native';
 import Infos from './Infos';
+import { BaseRouter } from '@react-navigation/native';
 
 export default class Collection extends Component {
     constructor(props) {
@@ -53,6 +54,12 @@ const s = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'pink'
+    },
+    prev: {
+        position: 'absolute',
+        top: 1,
+        height: 20,
+        width: 20
     },
     header: {
         flex: 0.4,
