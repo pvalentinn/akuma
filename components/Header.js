@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, Image, View } from 'react-native';
-import Nav from './Nav';
+const colors = require('../colors.json').default
 
 
 export default class Header extends Component {
     render() {
         return(
             <View style={styles.div}>
-                <Image source={require('../assets/akumascans.png')} style={{flex: 0.65, width: '100%'}}></Image>
-                <Nav function={this.props.function}/>
+                <Image source={require('../assets/akumascans.png')} style={{height: 75, width: '60%'}}></Image>
             </View>
         )
     }
@@ -16,9 +15,10 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
     div: {
-        height: '20%',
+        height: 80,
         alignItems: "center",
         justifyContent: "space-around",
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
+        backgroundColor: colors.borders
     }
 })

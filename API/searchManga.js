@@ -13,6 +13,7 @@ export default async function searchManga(string) {
             scans.push({
                 link: $(e).find('a').attr('href'),
                 name: `${$(e).find('a').text()}${title ?': ' + $(e).find('em').text() : ''}`,
+                key: `scan${i}`
             })
         });
         result = {
@@ -26,6 +27,7 @@ export default async function searchManga(string) {
             synopsis: $('.well').find('p').text()
         }
     })
+    console.log(result)
     return result;
 }
 

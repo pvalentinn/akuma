@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         borderWidth: 2,
         borderRadius: 10,
-        backgroundColor: '#15202b'
+        backgroundColor: colors.background
     },
     img: {
         flex: 1,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import Infos from './Infos';
-import Constants from "expo-constants";
 
 export default class Collection extends Component {
     constructor(props) {
@@ -66,13 +65,13 @@ const s = StyleSheet.create({
     },
     info: {
         flex: 0.6,
-        // backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center'
     },
     divImg: {
         flex: 0.7,
         width: '60%',
+        marginTop: 5
     },
     img: {
         flex: 1,
