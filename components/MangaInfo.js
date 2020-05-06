@@ -61,7 +61,7 @@ const s = StyleSheet.create({
         width: 20
     },
     header: {
-        flex: 0.5,
+        flex: 0.4,
         flexDirection: "row"
     },
     side: {
@@ -102,7 +102,7 @@ const s = StyleSheet.create({
         height: '100%'
     },  
     body:{
-        flex: 0.5,
+        flex: 0.6,
         backgroundColor: 'orange'
     }
 });

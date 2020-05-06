@@ -3,7 +3,9 @@ import { Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ImgList from '../components/ImgList';
+import LoadingScreen from '../components/LoadingScreen';
 import loadPopular from '../API/popular'
+import Header from '../components/Header';
 
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +22,7 @@ function PopularScreen () {
             setData({isSet: true, manga: await loadPopular()})
         }
         x()
-        return <Text>null</Text>
+        return <LoadingScreen />
     }
     else return <ImgList data={data.manga} />
 }
@@ -32,6 +34,7 @@ function ListScreen() {
 export default function HomeScreen() {
     return (    
         <>
+            <Header />
             <Tab.Navigator screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;

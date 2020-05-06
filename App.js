@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { navigationRef } from './RootNavigation';
-import Header from './components/Header';
 import loadPopular from './API/popular';
 import HomeScreen from './screen/HomeScreen'
 import MangaScreen from './screen/MangaScreen'
@@ -34,7 +33,6 @@ export default class App extends Component {
   render() {
     return (
       <View style={s.container}>
-        <Header />
         <NavigationContainer theme={{
               dark: false,
               colors: {
