@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Infos from './Infos';
-import { BaseRouter } from '@react-navigation/native';
 
-export default class Collection extends Component {
+export default class MangaInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +61,7 @@ const s = StyleSheet.create({
         width: 20
     },
     header: {
-        flex: 0.4,
+        flex: 0.5,
         flexDirection: "row"
     },
     side: {
@@ -103,7 +102,7 @@ const s = StyleSheet.create({
         height: '100%'
     },  
     body:{
-        flex: 0.6,
+        flex: 0.5,
         backgroundColor: 'orange'
     }
 });
