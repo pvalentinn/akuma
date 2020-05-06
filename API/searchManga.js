@@ -27,7 +27,7 @@ export default async function searchManga(string) {
             synopsis: $('.well').find('p').text()
         }
     })
-    console.log(result)
+    // console.log(result)
     return result;
 }
 

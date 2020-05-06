@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ImgList from '../components/ImgList';
 import LoadingScreen from '../components/LoadingScreen';
 import loadPopular from '../API/popular'
 import Header from '../components/Header';
+const colors = require('../colors.json').default
 
+const Tab = createMaterialTopTabNavigator();
 
-const Tab = createBottomTabNavigator();
+function iconStyle(focused, color, name) {
+    let iconName;
+    if (name === 'Populaires') {
+        iconName = focused ? 'ios-star' : 'ios-star-outline';
+    } else if (name === 'Liste') {
+        iconName = focused ? 'ios-list-box' : 'ios-list';
+    }
+    return <Ionicons name={iconName} color={color} size={25}/>;
+}
 
 function PopularScreen () {
     let [data, setData] = useState(
@@ -35,19 +45,17 @@ export default function HomeScreen() {
     return (    
         <>
             <Header />
-            <Tab.Navigator screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
-                    if (route.name === 'Populaires') {
-                        iconName = focused ? 'ios-star' : 'ios-star-outline';
-                    } else if (route.name === 'Liste') {
-                        iconName = focused ? 'ios-list-box' : 'ios-list';
-                    }
-                    return <Ionicons name={iconName} size={size} color={color} />;
-                    },
-                })}>
-                <Tab.Screen name="Populaires" component={PopularScreen} />
-                <Tab.Screen name="Liste" component={ListScreen}/>
+            <Tab.Navigator
+            tabBarPosition='bottom' 
+            tabBarOptions={
+                {
+                    activeTintColor: colors.active,
+                    inactiveTintColor: colors.text,
+                    showIcon: true,
+                }
+            }>
+                <Tab.Screen name="Populaires" component={PopularScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Populaires') }}/>
+                <Tab.Screen name="Liste" component={ListScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Liste') }}/>
             </Tab.Navigator>
         </>
     )

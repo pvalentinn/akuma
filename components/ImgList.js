@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet } from 'react-native';
 import ImgItem from './ImgItem';
+import Row from './Row';
 
 export default class ImgList extends Component {
 
     renderImgItem() {
         let copy = [...this.props.data];
         let finalArray = [];
-        let columns = []
+        let columns = [];
         
         copy.forEach((e, i) => {
             columns.push(<ImgItem manga={copy[i]} key={`imgItem${i}`}/>)
 
             if((i+1)%3 === 0) {
-                finalArray.push(<View style={s.div}>{columns}</View>);
+                finalArray.push(<Row key={i} columns={columns}/>);
                 columns = [];
             }
         });
