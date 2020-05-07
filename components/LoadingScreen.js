@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#27496d'
     },
     img: {
-        height: '100%', 
-        width: 'auto',
-         marginTop: 250
+        height: '100%',
+        width: '90%',
+        marginTop: 250
     }
 })

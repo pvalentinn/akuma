@@ -12,7 +12,7 @@ export default class Infos extends Component {
                         <TouchableOpacity style={s.button} onPress={() => this.props.display()}>
                             <Image source={require('../assets/close.png')} style={s.buttonInfoImg}/>
                         </TouchableOpacity>
-                        <Text>{manga.synopsis}</Text>
+                        <Text style={s.text}>{manga.synopsis}</Text>
                     </View>
                 </View>
             </Modal>
@@ -28,8 +28,8 @@ const s = StyleSheet.create({
     },
     content: {
         backgroundColor: '#fff', 
-        margin: 25, 
-        padding: 40,
+        margin: 20, 
+        padding: 50,
         borderRadius: 15,
         position: 'relative'
     },
@@ -43,5 +43,8 @@ const s = StyleSheet.create({
     buttonInfoImg: {
         width: '100%',
         height: '100%'
-    },  
+    },
+    text: {
+        textAlign: 'center'
+    }  
 });

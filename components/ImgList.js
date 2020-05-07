@@ -33,14 +33,9 @@ export default class ImgList extends Component {
     }
 }
 
-const windowHeight = Dimensions.get('window').height - 130;
+const width = Dimensions.get('window').width;
 const s = StyleSheet.create({
     scrollContainer: {
-        paddingVertical: 20,
-        height: windowHeight + 40
-      },
-    div: {
-        flex: 1,
-        flexDirection: "row"
+        height: ((width / 3) * 1.4 ) * 3.6
     },
 })

@@ -4,6 +4,7 @@
         "borders" : "#1A2B3C",
         "dark" : "#15202b",
         "background" : "#27496d",
+        "darkBackground" : "#203957",
         "active": "#8EA4D2"
     }
 }

@@ -14,6 +14,7 @@ export default class Row extends Component {
 const s = StyleSheet.create({
     div: {
         flex: 1,
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: 'space-around',
     },
 })
