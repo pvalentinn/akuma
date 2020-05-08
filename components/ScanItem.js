@@ -1,17 +1,24 @@
-import React, { PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 const color = require('../colors.json').default
 
 export default class ScanItem extends PureComponent {
+
+    getFontsize(length) {
+        let size = infoWidth / (length / 1.9);
+        if(size > 16) size = 16;
+        return size < 11 ? 11 : size;
+    }
+
     render() {
         let scan = this.props.scan;
         return (
             <View style={s.scan}>
                 <View style={s.numDiv}>
-                    <Text style={[s.text]} minimumFontScale={numWidth / (scan.id.length / 1.8)}>{scan.id}</Text>
+                    <Text style={[s.text]}>{scan.id}</Text>
                 </View>
                 <View style={s.nameDiv}>
-                    <Text style={[s.text, {marginLeft: 5}]} minimumFontScale={infoWidth / (scan.name.length / 1.8)}>{scan.name}</Text>
+                    <Text style={[{fontSize: this.getFontsize(this.props.length), marginLeft: 3}, s.text]}>{scan.name}</Text>
                 </View>
             </View>
         )

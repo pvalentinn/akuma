@@ -13,8 +13,8 @@ export default async function searchManga(string) {
             scans.push({
                 link: $(e).find('a').attr('href'),
                 name: `${$(e).find('a').text()}${title ?': ' + $(e).find('em').text() : ''}`,
-                id: `${i+1}`,
-                key: `scan${i}`
+                key: `scan${i}`,
+                id: `${chapters.length - i}`,
             })
         });
         result = {
@@ -28,13 +28,12 @@ export default async function searchManga(string) {
             synopsis: $('.well').find('p').text()
         }
     })
-    // console.log(result)
     return result;
 }
 
 function clearString(string) {
     return new Promise( resolve => {
-        let regex = /[!@#$%^&*(),.……?":{}|<>/-]/g;
+        let regex = /[^a-zA-Z0-9 ]/g;
         let firstString = string.replace(regex, '');
         regex = / +/g;
         let secondString = firstString.replace(regex, '-');

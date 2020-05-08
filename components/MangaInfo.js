@@ -1,28 +1,16 @@
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, FlatList, ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView } from 'react-native';
 import Infos from './Infos';
 import ScanItem from './ScanItem';
-import ScrollScans from './ScrollScans';
 import LoadingScreen from './LoadingScreen';
 const color = require('../colors.json').default;
-
-function setList(scans) {
-    return new Promise (resolve => {
-        let result = [];
-        scans.forEach((e, i) => {
-            result.push(<ScanItem key={e.key} scan={scans[i]}/>)
-        });
-        resolve(result);
-    });
-}
 
 export default class MangaInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             show: false,
-            list: <LoadingScreen />
+            list: null
         }
         this.display = this.display.bind(this)
     }
@@ -33,23 +21,25 @@ export default class MangaInfo extends Component {
         this.setState({show: show})
     }
 
-    awaitSetState(newChange) {
-        return new Promise( resolve => {
-          this.setState(newChange, () => resolve());
-        });
+    arrayScans(scans, length) {
+        let result = [];
+        scans.forEach(e => result.push(<ScanItem scan={e} length={length} key={e.key}/>) );
+        return this.setState({list: result});
     }
 
-    // async updateList(manga) {
-    //     if (!this.state.list) {
-    //         console.log('uii')
-    //         this.setState({list: await setList(manga.scans)})
-    //         return <LoadingScreen />
-    //     }
-    //     else return <ScrollScans data={this.state.list}/>
-    // }
+    renderScanList() {
+        if(!this.state.list) {
+            setTimeout(() => this.arrayScans(this.props.manga.scans, this.props.manga.name.length))
+            return <LoadingScreen />
+        } else {
+            return this.state.list
+        }
+    }
 
-    async componentDidMount() {
-        this.setState({list: await setList(this.props.manga.scans)} )
+    getFontsize(string) {
+        let size = textContainerWidth / (string / 1.9);
+        if(size > 37) size = 37;
+        return size < 15 ? 15 : size;
     }
 
     render() {
@@ -69,10 +59,12 @@ export default class MangaInfo extends Component {
                         <Image source={require('../assets/info.png')} style={s.buttonInfoImg}/>
                     </TouchableOpacity>
                    <View style={s.textContainer}>
-                        <Text style={[s.nameManga, {fontSize: textContainerWidth / (manga.name.length / 1.8)}]}>{manga.name}</Text>
+                        <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                <View style={s.scanList}></View>
+                <ScrollView contentContainerStyle={s.scanList}>
+                    {this.renderScanList()}
+                </ScrollView>
             </View>
         )
     }
@@ -80,14 +72,14 @@ export default class MangaInfo extends Component {
 
 const height = Dimensions.get('screen').height - StatusBar.currentHeight
 const headerHeight = (height * 0.15) / 1;
-const bgHeight = (height * 0.1) / 1; 
-const divTextHeight = (height * 0.25) / 1; 
-const scanListHeight = (height * 0.5) / 1; 
+const bgHeight = (height * 0.1) / 1;
+const divTextHeight = (height * 0.25) / 1;
+const scanListHeight = (height * 0.5) / 1;
 
 const width = Dimensions.get('window').width;
 const textContainerWidth = (width * 0.9) / 1;
 const widthImg = (width * 0.4) / 1;
- 
+
 const s = StyleSheet.create({
     container: {
         flex: 1,
@@ -136,9 +128,8 @@ const s = StyleSheet.create({
     img: {
         width: '95%',
         height: '95%',
-    },  
+    },
     divText: {
-        // flex: 0.25,
         height: divTextHeight,
         width: '100%',
         backgroundColor: color.borders,
@@ -146,11 +137,11 @@ const s = StyleSheet.create({
         alignItems: 'center'
     },
     textContainer: {
-        height: divTextHeight / 4,
+        height: divTextHeight / 3.5,
         width: '90%',
         marginBottom: divTextHeight / 4,
         flex: 0,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     nameManga: {
         color: color.text,
@@ -160,16 +151,15 @@ const s = StyleSheet.create({
         width: 31,
         height: 31,
         position: 'absolute',
-        bottom: 2,
-        right: 2
+        bottom: 5,
+        right: 5
     },
     buttonInfoImg: {
         width: '100%',
         height: '100%'
-    },  
+    },
     scanList: {
-        // flex: 0.45,
-        height: scanListHeight,
+        minHeight: scanListHeight,
         width: '100%',
         backgroundColor: color.background,
     },

@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import TextItem from './TextItem'
 
 export default class TextList extends Component {
     render(){
-        // let copy = [...this.props.data]
+        let list = [...this.props.data]
         return (
-            <View style={{height: '70%', backgroundColor: 'red'}}>
-                
-            </View>
+            <ScrollView contentContainerStyle={{height: this.props.nbr * 50}}>
+                {list.map((e, i) => {
+                    return <TextItem key={`letter${i}`} data={e}/>
+                })}
+            </ScrollView>
         )
     }
 }
+
+const s = StyleSheet.create({
+    // container: {
+    //     height: this.props.nbr * 40
+    // }
+})

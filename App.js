@@ -17,13 +17,7 @@ export default class App extends Component {
       populars: null
     }
   }
-
-  async componentDidMount() {
-    console.log(this.state.populars)
-    await this.awaitSetState({populars: await loadPopular()});
-    console.log(this.state.populars)
-  }
-
+  
   awaitSetState(newChange) {
     return new Promise( resolve => {
       this.setState(newChange, () => resolve());

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ImgList from '../components/ImgList';
 import LoadingScreen from '../components/LoadingScreen';
-import loadPopular from '../API/popular'
+import TextList from '../components/TextList';
 import Header from '../components/Header';
+import loadPopular from '../API/popular'
+import listText from '../API/listText'
 const colors = require('../colors.json').default
 
 const Tab = createMaterialTopTabNavigator();
@@ -15,21 +17,17 @@ function iconStyle(focused, color, name) {
     if (name === 'Populaires') {
         iconName = focused ? 'ios-star' : 'ios-star-outline';
     } else if (name === 'Liste') {
-        iconName = focused ? 'ios-list-box' : 'ios-list';
+        iconName = focused ? 'list-ul' : 'ios-list';
     }
+    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={20} /> 
     return <Ionicons name={iconName} color={color} size={25}/>;
 }
 
 function PopularScreen () {
-    let [data, setData] = useState(
-        { 
-            isSet: false,
-            manga: null
-        }
-    );
+    let [data, setData] = useState({ manga: null });
     if (!data.manga) {
         async function x() {
-            setData({isSet: true, manga: await loadPopular()})
+            setData({manga: await loadPopular()})
         }
         x()
         return <LoadingScreen />
@@ -38,7 +36,15 @@ function PopularScreen () {
 }
 
 function ListScreen() {
-    return <Text>null</Text>
+    let [data, setData] = useState({ list: null });
+    if (!data.list) {
+        async function x() {
+            setData({list: await listText()})
+        }
+        x()
+        return <LoadingScreen />
+    }
+    else return <TextList data={data.list.mangas} nbr={data.list.nbr}/>
 }
 
 export default function HomeScreen() {
