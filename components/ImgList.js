@@ -34,8 +34,11 @@ export default class ImgList extends Component {
 }
 
 const width = Dimensions.get('window').width;
+const finalHeight = ((((width * 0.33) / 1) * 1.4 - 7) + ((((width * 0.33) / 1) * 1.4 - 7) *0.2 ) / 1) * 3
+
 const s = StyleSheet.create({
     scrollContainer: {
-        height: ((width / 3) * 1.4 ) * 3.6
+        height: finalHeight + 45,
+        paddingVertical: 20,
     },
 })

@@ -57,114 +57,105 @@ export default class MangaInfo extends Component {
         return (
             <View style={s.container}>
                 <Infos manga={manga} show={this.state.show} display={this.display}/>
-                <View style={s.header}>
-                    <View style={s.side}></View>
-                    <View style={s.info}>
-                        <View style={s.border}> 
-                            <View style={s.divImg}>
-                                <Image source={{uri: manga.img}} style={s.img} />
-                            </View>
-                            <TouchableOpacity style={s.button} onPress={() => this.display()}>
-                                <Image source={require('../assets/info.png')} style={s.buttonInfoImg}/>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={s.divText}>
-                            <Text style={[{fontSize: infoWidth / (manga.name.length / 1.8)}, s.name]}>{manga.name}</Text>
-                        </View>
+                <View style={s.header}></View>
+                <View style={s.bgImg}>
+                    <View style={s.divImg}>
+                        <Image style={s.img} source={{uri: manga.img}}/>
                     </View>
-                    <View style={s.side}></View>
                 </View>
-                <View style={s.body}>
-                    <LinearGradient colors={[color.dark, color.background]} style={s.gradient}>
-                        <View style={{flex: 0.15}}>
-                            <Text style={[s.gradientText]}>N°</Text>
-                        </View>
-                        <View>
-                            <Text style={[s.gradientText]}>Nom du scan</Text>
-                        </View>
-                    </LinearGradient>
-                    {/* <FlatList
-                    data={manga.scans}
-                    renderItem={({ item }) => <ScanItem scan={item}/>}
-                    keyExtractor={item => item.key}
-                     /> */}
-                    {/* {this.state.list} */}
-                    <ScrollScans data={this.state.list}/>
+                <View style={s.invisible}></View>
+                <View style={s.divText}>
+                    <TouchableOpacity style={s.button} onPress={() => this.display()}>
+                        <Image source={require('../assets/info.png')} style={s.buttonInfoImg}/>
+                    </TouchableOpacity>
+                   <View style={s.textContainer}>
+                        <Text style={[s.nameManga, {fontSize: textContainerWidth / (manga.name.length / 1.8)}]}>{manga.name}</Text>
+                   </View>
                 </View>
+                <View style={s.scanList}></View>
             </View>
         )
     }
 };
 
+const height = Dimensions.get('screen').height - StatusBar.currentHeight
+const headerHeight = (height * 0.15) / 1;
+const bgHeight = (height * 0.1) / 1; 
+const divTextHeight = (height * 0.25) / 1; 
+const scanListHeight = (height * 0.5) / 1; 
+
 const width = Dimensions.get('window').width;
-const infoWidth = (width * 0.6) / 1;
-
-const height = Dimensions.get('window').height - StatusBar.currentHeight;
-const headerHeight = (height * 0.45) / 1;
-const borderHeight = (headerHeight * 0.7) / 1;
-
+const textContainerWidth = (width * 0.9) / 1;
+const widthImg = (width * 0.4) / 1;
+ 
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.darkBackground
-    },
-    prev: {
-        position: 'absolute',
-        top: 1,
-        height: 20,
-        width: 20
+        backgroundColor: 'pink',
     },
     header: {
+        // flex: 0.2,
         height: headerHeight,
-        flexDirection: "row",
-        justifyContent: 'center'
+        width: '100%',
+        backgroundColor: color.borders,
     },
-    side: {
-        flex: 0.2,
-        justifyContent: 'space-around',
-        alignItems: 'flex-start'
-    },
-    info: {
-        flex: 0.6,
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    border: {
-        height: borderHeight,
-        width: '90%',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        borderWidth: 3,
-        borderRadius: 10,
-        borderColor: color.dark,
-        paddingVertical: 5,
+    bgImg: {
+        height: bgHeight,
+        width: '100%',
+        zIndex: 5,
         backgroundColor: color.text,
+        borderColor: '#000',
+        borderTopWidth: 4,
+        borderBottomWidth: 4,
+
+    },
+    invisible: {
+        height: bgHeight - 8,
+        width: widthImg,
+        top: headerHeight + 4,
+        zIndex: 50,
+        position: "absolute",
+        borderLeftColor: color.text,
+        borderRightColor: color.text,
+        borderLeftWidth: 4,
+        borderRightWidth: 4,
+        alignSelf: 'center'
     },
     divImg: {
-        height: borderHeight - 10 ,
-        width: (borderHeight / 1.4) - 10,
+        position: "absolute",
+        bottom: -(widthImg * 1.4) / 3,
+        width: widthImg,
+        height: widthImg * 1.4,
+        backgroundColor: color.text,
+        alignSelf: "center",
+        borderColor: '#000',
+        borderWidth: 4,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     img: {
-        height: '100%',
-        width: '100%',
-        borderColor: color.borders,
-        borderWidth: 2,
-    }, 
+        width: '95%',
+        height: '95%',
+    },  
     divText: {
-        flex: 0.7,
+        // flex: 0.25,
+        height: divTextHeight,
         width: '100%',
-        flexDirection: "row",
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 3,
-        borderRadius: 5,
-        borderColor: color.dark,
-        backgroundColor: color.text
+        backgroundColor: color.borders,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
-    name: {
-        textAlign: 'center',
-        color: color.dark
-    }, 
+    textContainer: {
+        height: divTextHeight / 4,
+        width: '90%',
+        marginBottom: divTextHeight / 4,
+        flex: 0,
+        justifyContent: 'center'
+    },
+    nameManga: {
+        color: color.text,
+        textAlign: 'center'
+    },
     button: {
         width: 31,
         height: 31,
@@ -176,21 +167,11 @@ const s = StyleSheet.create({
         width: '100%',
         height: '100%'
     },  
-    body: {
-        flex: 1,
-        backgroundColor: color.background
+    scanList: {
+        // flex: 0.45,
+        height: scanListHeight,
+        width: '100%',
+        backgroundColor: color.background,
     },
-    gradient: {
-        height: 40,
-        width: width,
-        flex: 0,
-        flexDirection: 'row',
-    },
-    gradientNum:{
-        flex: 0.1
-    },  
-    gradientText: {
-        fontSize: 25,
-        color: color.text
-    }
+
 });

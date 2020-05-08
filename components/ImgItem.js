@@ -8,9 +8,7 @@ export default class ImgItem extends Component{
         let manga = this.props.manga;
         return (
             <TouchableOpacity style={styles.manga} onPress={() => RootNavigation.navigate('Manga', {name: manga.name})}>
-                <View style={styles.divImg}>
-                    <Image source={{uri: manga.src}} style={styles.img}></Image>
-                </View>
+                <Image source={{uri: manga.src}} style={styles.img}></Image>
                 <View style={styles.divText}>
                     <Text style={styles.text}>{manga.name}</Text>
                 </View>
@@ -19,35 +17,39 @@ export default class ImgItem extends Component{
     }
 }
 
-const width = Dimensions.get('window').width 
+const width = Dimensions.get('window').width;
+const mangaWidth = (width * 0.33) / 1;
+const mangaHeight = (mangaWidth * 1.4) - 7;
+const textDivText = (mangaHeight * 0.2) / 1;
 
 const styles = StyleSheet.create({
     manga: {
-        flex: 0.3,
-        width: (width / 3) - 5,
+        flex: 0,
+        width: mangaWidth,
+        height: mangaHeight + textDivText,
         alignItems: 'center',
-        marginVertical: 10,
+        justifyContent: 'space-between',
+        marginBottom: 5,
         borderColor: colors.dark,
+        backgroundColor: colors.dark,
         borderWidth: 5,
         borderRadius: 7
     },
-    divImg: {
-        height: (((width / 3) * 1.4) * 0.8) / 1,
-        width: '100%'
-    },
-    img: {
-        height: '100%',
-        width: '100%'
-    },
     divText: {
-        flex: 1,
+        flex: 0,
+        height: textDivText,
         width: '100%',
         backgroundColor: colors.dark,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
-        fontSize: 16,
         textAlign: 'center',
         color: colors.text,
+        fontSize: 16
     },
+    img: {
+        width: (mangaWidth * 0.9) / 1,
+        height: (mangaHeight * 0.9) / 1
+    }
 })
