@@ -1,5 +1,5 @@
-import React, { Component, PureComponent } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 const color = require('../colors.json').default
 
 export default class ScanItem extends PureComponent {

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView } from 'react-native';
 import Infos from './Infos';
-import ScanItem from './ScanItem';
-import LoadingScreen from './LoadingScreen';
+import ScanList from './ScanList';
 const color = require('../colors.json').default;
 
 export default class MangaInfo extends Component {
@@ -19,21 +18,6 @@ export default class MangaInfo extends Component {
         let show = this.state.show;
         show === true ? show = false : show = true;
         this.setState({show: show})
-    }
-
-    arrayScans(scans, length) {
-        let result = [];
-        scans.forEach(e => result.push(<ScanItem scan={e} length={length} key={e.key}/>) );
-        return this.setState({list: result});
-    }
-
-    renderScanList() {
-        if(!this.state.list) {
-            setTimeout(() => this.arrayScans(this.props.manga.scans, this.props.manga.name.length))
-            return <LoadingScreen />
-        } else {
-            return this.state.list
-        }
     }
 
     getFontsize(string) {
@@ -62,9 +46,7 @@ export default class MangaInfo extends Component {
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                <ScrollView contentContainerStyle={s.scanList}>
-                    {this.renderScanList()}
-                </ScrollView>
+                <ScanList scans={manga.scans} length={this.props.manga.name.length}/>
             </View>
         )
     }
@@ -83,7 +65,7 @@ const widthImg = (width * 0.4) / 1;
 const s = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'pink',
+        backgroundColor: color.background,
     },
     header: {
         // flex: 0.2,

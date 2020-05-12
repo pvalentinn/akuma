@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ImgList from '../components/ImgList';
 import LoadingScreen from '../components/LoadingScreen';
-import TextList from '../components/TextList';
+import ListAllManga from '../components/ListAllManga';
 import Header from '../components/Header';
 import loadPopular from '../API/popular'
-import listText from '../API/listText'
+import getAll from '../API/getAll'
 const colors = require('../colors.json').default
 
 const Tab = createMaterialTopTabNavigator();
@@ -39,12 +38,12 @@ function ListScreen() {
     let [data, setData] = useState({ list: null });
     if (!data.list) {
         async function x() {
-            setData({list: await listText()})
+            setData({list: await getAll()})
         }
         x()
         return <LoadingScreen />
     }
-    else return <TextList data={data.list.mangas} nbr={data.list.nbr}/>
+    else return <ListAllManga data={data.list}/>
 }
 
 export default function HomeScreen() {
