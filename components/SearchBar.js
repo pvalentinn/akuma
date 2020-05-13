@@ -25,11 +25,11 @@ export default class SearchBar extends Component {
     moveUp = () => {
         Animated.timing(this.state.top, {
             toValue: 20,
-            duration: 1000
+            duration: 700
         }).start();
         Animated.timing(this.state.heightWidth, {
             toValue: 40,
-            duration: 1000
+            duration: 700
         }).start();
         return this.setState({display: true})
     }
@@ -37,11 +37,11 @@ export default class SearchBar extends Component {
     moveDown = () => {
         Animated.timing(this.state.top, {
             toValue: this.props.containerHeight - 40,
-            duration: 1000
+            duration: 700
         }).start();
         Animated.timing(this.state.heightWidth, {
             toValue: 36,
-            duration: 1000
+            duration: 700
         }).start();
         return this.setState({display: false, string: []})
     }
@@ -49,7 +49,7 @@ export default class SearchBar extends Component {
     expand = () => {
         Animated.timing(this.state.widthSearchBar, {
             toValue: width - 50,
-            duration: 1000
+            duration: 700
         }).start();
         return this.setState({display: true})
     }
@@ -57,7 +57,7 @@ export default class SearchBar extends Component {
     shrink = () => {
         Animated.timing(this.state.widthSearchBar, {
             toValue: 0,
-            duration: 1000
+            duration: 700
         }).start();
         return this.setState({display: false, string: []})
     }

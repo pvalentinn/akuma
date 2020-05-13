@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import * as RootNavigation from '../RootNavigation'
 const color = require('../colors.json').default
 
 export default class ScanItem extends PureComponent {
@@ -13,14 +14,16 @@ export default class ScanItem extends PureComponent {
     render() {
         let scan = this.props.scan;
         return (
-            <View style={s.scan}>
-                <View style={s.numDiv}>
-                    <Text style={[s.text]}>{scan.id}</Text>
+            <TouchableWithoutFeedback onPress={() => RootNavigation.navigate('Scan', {link: scan.link})}>
+                <View style={s.scan}>
+                    <View style={s.numDiv}>
+                        <Text style={[s.text]}>{scan.id}</Text>
+                    </View>
+                    <View style={s.nameDiv}>
+                        <Text style={[{fontSize: this.getFontsize(this.props.length), marginLeft: 3}, s.text]}>{scan.name}</Text>
+                    </View>
                 </View>
-                <View style={s.nameDiv}>
-                    <Text style={[{fontSize: this.getFontsize(this.props.length), marginLeft: 3}, s.text]}>{scan.name}</Text>
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 }

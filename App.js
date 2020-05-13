@@ -6,6 +6,7 @@ import { navigationRef } from './RootNavigation';
 import loadPopular from './API/popular';
 import HomeScreen from './screen/HomeScreen'
 import MangaScreen from './screen/MangaScreen'
+import ScanScreen from './screen/ScanScreen'
 
 const colors = require('./colors.json').default
 const Stack = createStackNavigator();
@@ -39,7 +40,7 @@ export default class App extends Component {
           <Stack.Navigator screenOptions={{headerShown: false }} >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Manga" component={MangaScreen} />
-            {/* <Stack.Screen name="Scan" component={ScanScreen} /> */}
+            <Stack.Screen name="Scan" component={ScanScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
