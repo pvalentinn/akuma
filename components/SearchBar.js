@@ -15,6 +15,7 @@ export default class SearchBar extends Component {
             heightWidth: new Animated.Value(36),
             widthSearchBar: new Animated.Value(0),
             display: false,
+            defaultValue: 'Recherche un manga',
             width: 0,
             height: 0,
             string: [],
@@ -71,13 +72,14 @@ export default class SearchBar extends Component {
     }
 
     textInputHandler = async string => {
+        this.setState({defaultValue: string})
         this.setState({string: await searchBarHandler(string)})
     }
 
     cancelButtonHandler = () => {
         this.moveDown();
         this.shrink();
-        this.setState({string: []})
+        this.setState({string: [], defaultValue: 'Recherche un manga'})
     }
 
     render() {
@@ -88,7 +90,12 @@ export default class SearchBar extends Component {
                     <Animated.View style={[s.animatedSearchBar, {width: this.state.widthSearchBar}]}>
                         <View style={s.searchBar} onLayout={(event) => {
                         let {x, y, width, height} = event.nativeEvent.layout; this.setState({width: (width * 0.02) / 1, height: height})}}>
-                            <TextInput style={[s.textInput, {paddingLeft: this.state.width}]} onChangeText={text => this.textInputHandler(text)} defaultValue={'Recherche un manga'}/>
+                            <TextInput 
+                            style={[s.textInput, {paddingLeft: this.state.width}]} 
+                            onChangeText={text => this.textInputHandler(text)}
+                            onFocus={() => this.setState({defaultValue: ''})}
+                            value={this.state.defaultValue} 
+                            />
                             <TouchableOpacity style={s.cancelHandler} onPress={this.cancelButtonHandler}>
                                 <View style={s.cancelDiv}>
                                     <MaterialIcons name="cancel" size={this.state.width + 1} color="#4285F4"/>
