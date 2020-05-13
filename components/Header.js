@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-around",
         alignItems: 'flex-start',
-        backgroundColor: colors.borders
+        backgroundColor: colors.borders,
     }
 })

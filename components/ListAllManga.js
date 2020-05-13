@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { Text, View, ActivityIndicator, FlatList, TouchableWithoutFeedback, ColorPropType } from 'react-native';
 import * as RootNavigation from '../RootNavigation';
+import SearchBar from './SearchBar';
 const color = require('../colors.json').default
 
 export default class ListAllManga extends Component {
@@ -8,13 +9,16 @@ export default class ListAllManga extends Component {
         super(props);
         this.state = {
             data: null,
-            loading: true
+            loading: true,
+            containerHeight: 0
         }
     }
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1}} onLayout={(event) => {
+                let {x, y, width, height} = event.nativeEvent.layout; this.setState({containerHeight: height - 15})}}>
+                <SearchBar containerHeight={this.state.containerHeight}/>
                 <ResultsTable results={this.props.data}/>
             </View>
         )
@@ -54,7 +58,6 @@ class ResultsTable extends PureComponent {
             return this.setState({i: 0})
         } else {
             let toAdd = this.next35();
-            console.log(this.state.i)
             return this.setState({data: [...data, ...toAdd]})
         }
     }
