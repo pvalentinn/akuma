@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView, RefreshControl, AsyncStorage } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
 import Infos from './Infos';
 import ScanList from './ScanList';
+import refreshFavorite from '../API/refreshFavorite'
 const color = require('../colors.json').default;
 
 export default class MangaInfo extends Component {
@@ -10,12 +12,29 @@ export default class MangaInfo extends Component {
         this.state = {
             show: false,
             list: null,
-            refreshing: false
+            refreshing: false,
+            favorite: false
         }
-        this.display = this.display.bind(this)
     }
 
-    display() {
+    async componentDidMount() {
+        let json = await AsyncStorage.getItem('favorites');
+        let favorites = await JSON.parse(json);
+        // console.log(favorites)
+        let found = favorites.find(e => e.name === this.props.manga.name);
+        // console.log(found);
+        if(found) {
+            this.setState({favorite: true})
+            // console.log('true')
+        } else {
+            this.setState({favorite: false})
+            // console.log('false')
+        }
+        //reset
+        // await AsyncStorage.setItem('favorites', JSON.stringify([]))
+    }
+
+    infoHandler = () => {
         let show = this.state.show;
         show === true ? show = false : show = true;
         this.setState({show: show})
@@ -34,17 +53,42 @@ export default class MangaInfo extends Component {
         });
     }
 
+    favoriteHandler = async () => {
+        let isFavorite = this.state.favorite;
+        let json = await AsyncStorage.getItem('favorites');
+        let favorites = await JSON.parse(json);
+        if(!isFavorite) {
+            favorites.push({
+                name: this.props.manga.name,
+                img: this.props.manga.img,
+                timestamp: this.props.manga.timestamp,
+                lastScanRead: 0
+            })
+            // console.log(favorites)
+            await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+            this.setState({favorite: true})
+            refreshFavorite()
+        } else if (isFavorite) {
+            let found = favorites.find(e => e.name === this.props.manga.name);
+            favorites.splice(favorites.indexOf(found), 1);
+            // console.log(favorites)
+            await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+            this.setState({favorite: false})
+            refreshFavorite()
+        }
+    }
+
     render() {
         let manga = this.props.manga;
         return (
             <ScrollView contentContainerStyle={s.container} horizontal={false} 
-            refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.refreshHandler}
-                />}
+                refreshControl={
+                    <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.refreshHandler}
+                    />}
             >
-                <Infos manga={manga} show={this.state.show} display={this.display}/>
+                <Infos manga={manga} show={this.state.show} display={this.infoHandler}/>
                 <View style={s.header}></View>
                 <View style={s.bgImg}>
                     <View style={s.divImg}>
@@ -53,8 +97,11 @@ export default class MangaInfo extends Component {
                 </View>
                 <View style={s.invisible}></View>
                 <View style={s.divText}>
-                    <TouchableOpacity style={s.button} onPress={() => this.display()}>
-                        <Image source={require('../assets/info.png')} style={s.buttonInfoImg}/>
+                    <TouchableOpacity style={s.buttonInfo} onPress={() => this.infoHandler()}>
+                        <Ionicons name="md-information-circle-outline" size={31} color={color.text} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={s.buttonFavorite} onPress={() => this.favoriteHandler()}>
+                        {this.state.favorite ? <Ionicons name="ios-heart" size={31} color="#BB4430" /> : <Ionicons name="ios-heart-empty" size={31} color={color.text} />}
                     </TouchableOpacity>
                    <View style={s.textContainer}>
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
@@ -107,7 +154,7 @@ const s = StyleSheet.create({
         borderRightColor: color.text,
         borderLeftWidth: 4,
         borderRightWidth: 4,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     divImg: {
         position: "absolute",
@@ -143,16 +190,19 @@ const s = StyleSheet.create({
         color: color.text,
         textAlign: 'center'
     },
-    button: {
+    buttonInfo: {
+        width: 31,
+        height: 31,
+        position: 'absolute',
+        bottom: 5,
+        right: 5 + 31 
+    },
+    buttonFavorite: {
         width: 31,
         height: 31,
         position: 'absolute',
         bottom: 5,
         right: 5
-    },
-    buttonInfoImg: {
-        width: '100%',
-        height: '100%'
     },
     scanList: {
         minHeight: scanListHeight,
