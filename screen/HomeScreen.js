@@ -7,6 +7,7 @@ import ListAllManga from '../components/ListAllManga';
 import Header from '../components/Header';
 import loadPopular from '../API/popular'
 import getAll from '../API/getAll'
+import FavoriteScreen from './FavoriteScreen'
 const colors = require('../colors.json').default
 
 const Tab = createMaterialTopTabNavigator();
@@ -17,8 +18,10 @@ function iconStyle(focused, color, name) {
         iconName = focused ? 'ios-star' : 'ios-star-outline';
     } else if (name === 'Liste') {
         iconName = focused ? 'list-ul' : 'ios-list';
+    } else if (name === 'Favoris') {
+        iconName = focused ? 'ios-heart' : 'ios-heart-empty'
     }
-    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={20} /> 
+    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={19} /> 
     return <Ionicons name={iconName} color={color} size={25}/>;
 }
 
@@ -61,6 +64,7 @@ export default function HomeScreen() {
             }>
                 <Tab.Screen name="Populaires" component={PopularScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Populaires') }}/>
                 <Tab.Screen name="Liste" component={ListScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Liste') }}/>
+                <Tab.Screen name="Favoris" component={FavoriteScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Favoris') }}/>
             </Tab.Navigator>
         </>
     )
