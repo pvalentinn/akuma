@@ -25,7 +25,8 @@ export default async function searchManga(string) {
             category: $('dt:contains("Catégories")').next().find('a').text(),
             views: $('dt:contains("Vues")').next().text(),
             scans: scans,
-            synopsis: $('.well').find('p').text()
+            synopsis: $('.well').find('p').text(),
+            timestamp: Math.round(new Date().getTime()) / 60000
         }
     })
     return result;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, StatusBar, ScrollView, RefreshControl } from 'react-native';
 import Infos from './Infos';
 import ScanList from './ScanList';
 const color = require('../colors.json').default;
@@ -9,7 +9,8 @@ export default class MangaInfo extends Component {
         super(props);
         this.state = {
             show: false,
-            list: null
+            list: null,
+            refreshing: false
         }
         this.display = this.display.bind(this)
     }
@@ -26,10 +27,23 @@ export default class MangaInfo extends Component {
         return size < 15 ? 15 : size;
     }
 
+    refreshHandler = async () => {
+        this.setState({refreshing: true});
+        await this.props.refresh().then(() => {
+            this.setState({refreshing: false});
+        });
+    }
+
     render() {
         let manga = this.props.manga;
         return (
-            <View style={s.container}>
+            <ScrollView contentContainerStyle={s.container} horizontal={false} 
+            refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.refreshHandler}
+                />}
+            >
                 <Infos manga={manga} show={this.state.show} display={this.display}/>
                 <View style={s.header}></View>
                 <View style={s.bgImg}>
@@ -46,8 +60,8 @@ export default class MangaInfo extends Component {
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                <ScanList scans={manga.scans} length={this.props.manga.name.length}/>
-            </View>
+                    <ScanList scans={manga.scans} length={this.props.manga.name.length}/>
+            </ScrollView>
         )
     }
 };

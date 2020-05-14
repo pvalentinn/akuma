@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { View, ActivityIndicator, FlatList } from 'react-native';
+import { View, ActivityIndicator, FlatList, ScrollView } from 'react-native';
 import * as RootNavigation from '../RootNavigation';
 import ScanItem from './ScanItem';
 const color = require('../colors.json').default
@@ -15,9 +15,9 @@ export default class ScanList extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <ScrollView contentContainerStyle={{flex: 1}} horizontal>
                 <ResultsTable results={this.props.scans} length={this.props.length}/>
-            </View>
+            </ScrollView>
         )
     }
 }
