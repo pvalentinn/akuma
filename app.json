@@ -33,6 +33,10 @@
     },
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.keidevpv.akuma",
+      "versionCode": 1
     }
   }
 }

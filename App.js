@@ -3,7 +3,6 @@ import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { navigationRef } from './RootNavigation';
-import loadPopular from './API/popular';
 import HomeScreen from './screen/HomeScreen'
 import MangaScreen from './screen/MangaScreen'
 import ScanScreen from './screen/ScanScreen'
@@ -17,6 +16,19 @@ export default class App extends Component {
     this.state = {
       populars: null
     }
+  }
+
+  async componentDidMount() {
+    const favorites = await AsyncStorage.getItem('favorites');
+    if(!favorites) await AsyncStorage.setItem('favorites', JSON.stringify([]));
+
+    const mangas = await AsyncStorage.getItem('mangas');
+    if (!mangas) await AsyncStorage.setItem('mangas', JSON.stringify({}));
+
+    const scans = await AsyncStorage.getItem('scans');
+    if (!scans) await AsyncStorage.setItem('scans', JSON.stringify([]));
+
+    // await AsyncStorage.clear().then(() => console.log('ahah'));
   }
   
   awaitSetState(newChange) {

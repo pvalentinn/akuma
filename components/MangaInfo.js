@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Infos from './Infos';
 import ScanList from './ScanList';
 import refreshFavorite from '../API/refreshFavorite'
+import LoadingScreen from './LoadingScreen';
 const color = require('../colors.json').default;
 
 export default class MangaInfo extends Component {
@@ -48,7 +49,7 @@ export default class MangaInfo extends Component {
 
     refreshHandler = async () => {
         this.setState({refreshing: true});
-        await this.props.refresh().then(() => {
+        await this.props.refresh(this.props.manga.name).then(() => {
             this.setState({refreshing: false});
         });
     }
@@ -107,7 +108,7 @@ export default class MangaInfo extends Component {
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                    <ScanList scans={manga.scans} length={this.props.manga.name.length}/>
+                    {this.state.refreshing ? <LoadingScreen /> : <ScanList scans={manga.scans} length={this.props.manga.name.length}/>}
             </ScrollView>
         )
     }
