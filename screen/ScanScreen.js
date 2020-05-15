@@ -6,17 +6,17 @@ import LoadingScreen from '../components/LoadingScreen';
 
 export default function ScanScreen( {route} ) {
     let [data, setData] = useState({ scan: null });
-    let currentTime = Math.round(new Date().getTime()) / 60000;
     if (!data.scan) {
         getData = async () => {
+            let currentTime = Math.round(new Date().getTime()) / 60000;
             try {
                 const json = await AsyncStorage.getItem(`scans`);
                 const scans = await JSON.parse(json);
                 let hasIt = link => scans.find(e => e.link === link) ? scans.find(e => e.link === link) : false;
                 const value = hasIt(route.params.link);
                 if (value) {
+                    console.log('javais')
                     let diff = currentTime - value.timestamp;
-                    console.log(diff);
                     if (diff > 30) {
                         console.log('javais mais time to update scans');
                         let apiCall = await searchScan(route.params.link);

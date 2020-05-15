@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component, PureComponent, useDebugValue } from 'react';
 import { Animated, Text, TextInput, View, StyleSheet, TouchableHighlight, Dimensions, TouchableOpacity, ScrollView, FlatList, ColorPropType } from 'react-native';
 import Icon from '../assets/Icon'
 import searchBarHandler from '../API/searchBarHandler'
@@ -64,8 +64,9 @@ export default class SearchBar extends Component {
                             renderItem={({item}) => <Item text={item.value} shrink={this.shrink}/>}
                         />
                     </View>
-                    
-                    : <Icon />}
+                    : 
+                    <Icon />
+                    }
                 </TouchableHighlight>
             </Animated.View>
         )
@@ -94,7 +95,9 @@ const s = StyleSheet.create({
         top: 0,
         right: 0,
         backgroundColor: color.borders,
-        zIndex: 5
+        zIndex: 5,
+        // flex: 0,
+        // alignItems: 'flex-start'
     },
     searchBar: {
         flex: 0,

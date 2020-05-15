@@ -12,9 +12,13 @@ export default function MangaScreen( {route} ) {
         const json = await AsyncStorage.getItem(`mangas`);
         const mangas = await JSON.parse(json);
         let apiCall = await searchManga(name);
-        mangas[name] = apiCall
-        await AsyncStorage.setItem('mangas', JSON.stringify(mangas));
-        setData({manga: apiCall})
+        let hasIt = name => mangas.find(e => e.name === name) ? mangas.find(e => e.name === name) : false;
+        const value = hasIt(name)
+        console.log(mangas.length)
+        mangas.splice(mangas.indexOf(value), 1);
+        mangas.push(apiCall);
+        await AsyncStorage.setItem(`mangas`, JSON.stringify(mangas));
+        setData({manga: apiCall});
     }
 
     if (!data.manga) {
@@ -23,7 +27,7 @@ export default function MangaScreen( {route} ) {
             try {
                 const json = await AsyncStorage.getItem(`mangas`);
                 const mangas = await JSON.parse(json);
-                let hasIt = name => mangas.hasOwnProperty(name) ? mangas[name] : false;
+                let hasIt = name => mangas.find(e => e.name === name) ? mangas.find(e => e.name === name) : false;
                 const value = hasIt(route.params.name)
                 // console.log(value)
                 if (value) {
@@ -32,19 +36,21 @@ export default function MangaScreen( {route} ) {
                     if (diff > 30) {
                         console.log('javais mais time to update')
                         let apiCall = await searchManga(route.params.name);
-                        mangas[route.params.name] = apiCall
-                        // console.log(mangas)
-                        await AsyncStorage.setItem('mangas', JSON.stringify(mangas));
-                        setData({manga: apiCall})
+                        console.log(mangas.length)
+                        mangas.splice(mangas.indexOf(value), 1);
+                        mangas.push(apiCall);
+                        await AsyncStorage.setItem(`mangas`, JSON.stringify(mangas));
+                        setData({manga: apiCall});
                     } else {
                         setData({manga: value})
                     }
                 } else {
                     console.log('javais aps')
                     let apiCall = await searchManga(route.params.name);
-                    mangas[route.params.name] = apiCall
-                    // console.log(mangas)
-                    await AsyncStorage.setItem('mangas', JSON.stringify(mangas));
+                    if(mangas.length >= 5) mangas.shift();
+                    mangas.push(apiCall);
+                    console.log(mangas.length)
+                    await AsyncStorage.setItem(`mangas`, JSON.stringify(mangas));
                     setData({manga: apiCall})
                 }
             } catch(e) {
