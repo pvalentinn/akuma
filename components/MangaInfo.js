@@ -31,8 +31,6 @@ export default class MangaInfo extends Component {
             this.setState({favorite: false})
             // console.log('false')
         }
-        //reset
-        // await AsyncStorage.setItem('favorites', JSON.stringify([]))
     }
 
     infoHandler = () => {
@@ -108,7 +106,7 @@ export default class MangaInfo extends Component {
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                    {this.state.refreshing ? <LoadingScreen /> : <ScanList scans={manga.scans} length={this.props.manga.name.length}/>}
+                    {this.state.refreshing ? <LoadingScreen /> : <ScanList scans={manga.scans} length={manga.name.length} name={manga.name}/>}
             </ScrollView>
         )
     }

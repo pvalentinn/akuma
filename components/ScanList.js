@@ -8,15 +8,17 @@ export default class ScanList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
+            data: this.props.scans,
             loading: true
         }
     }
+    
+    updateDisplay = () => 
 
     render() {
         return (
             <ScrollView contentContainerStyle={{flex: 1}} horizontal>
-                <ResultsTable results={this.props.scans} length={this.props.length}/>
+                <ResultsTable results={this.state.data} length={this.props.length} name={this.props.name} />
             </ScrollView>
         )
     }
@@ -54,7 +56,7 @@ class ResultsTable extends PureComponent {
                 <FlatList 
                     data={this.state.data}
                     keyExtractor={(item, index) => `${index}`}
-                    renderItem={({item}) => <ScanItem scan={item} length={this.props.length} key={item.key}/>}
+                    renderItem={({item}) => <ScanItem scan={item} length={this.props.length} key={item.key} name={this.props.name}/>}
                     onEndReached={this.handleEnd}
                     onEndReachedThreshold={0.1}
                     ListFooterComponent={!this.state.i ? <View /> : <Loading />}

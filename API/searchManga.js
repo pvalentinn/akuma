@@ -14,7 +14,7 @@ export default async function searchManga(string) {
                 link: $(e).find('a').attr('href'),
                 name: `${$(e).find('a').text()}${title ?': ' + $(e).find('em').text() : ''}`,
                 key: `scan${i}`,
-                id: `${chapters.length - i}`,
+                id: `${chapters.length - i}`
             })
         });
         result = {

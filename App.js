@@ -28,6 +28,9 @@ export default class App extends Component {
     const scans = await AsyncStorage.getItem('scans');
     if (!scans) await AsyncStorage.setItem('scans', JSON.stringify([]));
 
+    const history = await AsyncStorage.getItem('history');
+    if (!history) await AsyncStorage.setItem('history', JSON.stringify([]));
+
     // await AsyncStorage.clear().then(() => console.log('ahah'));
   }
   
