@@ -26,11 +26,13 @@ export default function ViewsMenu(props) {
     const handleMultipleAddToHistory = async () => {
         await addMultipleToHistory(props.name, props.id)
         menu.current.hide()
+        props.updateDisplay()
     }
 
     const handleMultipleRemoveToHistory = async () => {
         await removeMultipleFromHistory(props.name, props.id)
         menu.current.hide()
+        props.updateDisplay()
     }
 
     return(

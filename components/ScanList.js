@@ -1,6 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { View, ActivityIndicator, FlatList, ScrollView } from 'react-native';
-import * as RootNavigation from '../RootNavigation';
+import { View, ActivityIndicator, FlatList, ScrollView, RefreshControl } from 'react-native';
 import ScanItem from './ScanItem';
 const color = require('../colors.json').default
 
@@ -8,60 +7,51 @@ export default class ScanList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.scans,
-            loading: true
-        }
-    }
-    
-    updateDisplay = () => 
-
-    render() {
-        return (
-            <ScrollView contentContainerStyle={{flex: 1}} horizontal>
-                <ResultsTable results={this.state.data} length={this.props.length} name={this.props.name} />
-            </ScrollView>
-        )
-    }
-}
-
-class ResultsTable extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
             i: 35,
-            data: this.props.results.slice(0, 35)
+            data: this.props.scans.slice(0, 35),
+            refreshing: false,
         }
         this.handleEnd = this.handleEnd.bind(this)
     }
 
     next35() {
-        let i = this.state.i;
-        this.setState({i: i+35});
-        return this.props.results.slice(i, i+35);   
+        let { i } = this.state;
+        let copyResults = [...this.props.scans]
+        return copyResults.slice(i, i+35);   
     }
 
     handleEnd() {
-        let data = this.state.data;
-        if(this.props.results.length === data.length) {
+        let { data, i } = this.state;
+        let { scans } = this.props;
+        let copyData = [...data];
+        let index = i
+        
+        if(scans.length === copyData.length) {
             return this.setState({i: 0})
         } else {
             let toAdd = this.next35();
-            return this.setState({data: [...data, ...toAdd]})
+            return this.setState({data: [...copyData, ...toAdd], i: index+35})
         }
+    }
+
+    updateDisplay = () => {
+        let { data } = this.state;
+        let copyData = [...data];
+        this.setState({data: []}, () => this.setState({data: [...copyData]}))
     }
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <ScrollView contentContainerStyle={{flex: 1}} horizontal>
                 <FlatList 
                     data={this.state.data}
                     keyExtractor={(item, index) => `${index}`}
-                    renderItem={({item}) => <ScanItem scan={item} length={this.props.length} key={item.key} name={this.props.name}/>}
+                    renderItem={({item}) => <ScanItem scan={item} length={this.props.name.length} key={item.key} name={this.props.name} updateDisplay={this.updateDisplay} />}
                     onEndReached={this.handleEnd}
                     onEndReachedThreshold={0.1}
                     ListFooterComponent={!this.state.i ? <View /> : <Loading />}
                 />
-            </View>
+            </ScrollView>
         )
     }
 }

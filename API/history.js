@@ -27,7 +27,8 @@ export async function addToHistory(name, id) {
         history.push({name: name, seen: [ id ]});
     } else {
         console.log('exist');
-        found.seen.push(id)
+        if (found.seen.find(e => e === `${id}`)) return;
+        found.seen.unshift(id)
     }
     console.log(history);
     return await AsyncStorage.setItem('history', JSON.stringify(history))
@@ -58,9 +59,11 @@ export async function addMultipleToHistory(name, id) {
         found = history.find(e => e.name === name);
     }
     for(index; index > 0; index--) {
-        found.seen.push(`${index}`)
+        if (!found.seen.find(e => e === `${index}`)) {
+            found.seen.unshift(`${index}`)
+        }
     }
-    // console.log(history + 'a')
+    console.log(history)
     return await AsyncStorage.setItem('history', JSON.stringify(history))
 }
 

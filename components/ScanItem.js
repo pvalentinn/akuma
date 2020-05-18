@@ -12,12 +12,11 @@ export default class ScanItem extends PureComponent {
         this.state = {
             seen: false,
             scan: this.props.scan,
-            init: false
         }
-
-    async componentDidMount() {
-        this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
     }
+    // async componentDidMount() {
+    //     this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
+    // }
 
     getFontsize(length) {
         let size = infoWidth / (length / 1.9);
@@ -26,7 +25,8 @@ export default class ScanItem extends PureComponent {
     }
 
     render() {
-        let scan = this.props.scan;
+        let scan = this.state.scan;
+        setTimeout(async() => this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)}))
         return (
             <TouchableWithoutFeedback onPress={() => RootNavigation.navigate('Scan', {link: scan.link})}>
                 <View style={[s.scan, {backgroundColor: this.state.seen ? color.darkBackground : color.background}]}>
@@ -35,7 +35,7 @@ export default class ScanItem extends PureComponent {
                     </View>
                     <View style={s.nameDiv}>
                         <Text style={[{fontSize: this.getFontsize(this.props.length), marginLeft: 3, flex: 1}, s.text]}>{scan.name}</Text>
-                        <ViewsMenu id={scan.id} name={this.props.name} setState={bool => this.setState({seen: bool})} />
+                        <ViewsMenu id={scan.id} name={this.props.name} setState={bool => this.setState({seen: bool})} updateDisplay={this.props.updateDisplay}/>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
