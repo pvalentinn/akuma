@@ -3,7 +3,7 @@ import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { navigationRef } from './RootNavigation';
-import HomeScreen from './screen/HomeScreen'
+import TabsScreen from './screen/TabsScreen'
 import MangaScreen from './screen/MangaScreen'
 import ScanScreen from './screen/ScanScreen'
 
@@ -53,7 +53,7 @@ export default class App extends Component {
               }
             }} ref={navigationRef}>
           <Stack.Navigator screenOptions={{headerShown: false }} >
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Tabs" component={TabsScreen} />
             <Stack.Screen name="Manga" component={MangaScreen} />
             <Stack.Screen name="Scan" component={ScanScreen} />
           </Stack.Navigator>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ImgList from '../components/ImgList';
+import HomePage from '../components/HomePage';
 import LoadingScreen from '../components/LoadingScreen';
 import ListAllManga from '../components/ListAllManga';
 import Header from '../components/Header';
-import loadPopular from '../API/popular'
+import getHomeInfos from '../API/getHomeInfos'
 import getAll from '../API/getAll'
 import FavoriteScreen from './FavoriteScreen'
 const colors = require('../colors.json').default
@@ -14,7 +14,7 @@ const Tab = createMaterialTopTabNavigator();
 
 function iconStyle(focused, color, name) {
     let iconName;
-    if (name === 'Populaires') {
+    if (name === 'Home') {
         iconName = focused ? 'ios-star' : 'ios-star-outline';
     } else if (name === 'Liste') {
         iconName = focused ? 'list-ul' : 'ios-list';
@@ -25,16 +25,16 @@ function iconStyle(focused, color, name) {
     return <Ionicons name={iconName} color={color} size={25}/>;
 }
 
-function PopularScreen () {
-    let [data, setData] = useState({ manga: null });
-    if (!data.manga) {
+function HomeScreen () {
+    let [data, setData] = useState(null);
+    if (!data) {
         async function x() {
-            setData({manga: await loadPopular()})
+            setData(await getHomeInfos())
         }
         x()
         return <LoadingScreen />
     }
-    else return <ImgList data={data.manga} />
+    else return <HomePage data={data} />
 }
 
 function ListScreen() {
@@ -49,7 +49,7 @@ function ListScreen() {
     else return <ListAllManga data={data.list}/>
 }
 
-export default function HomeScreen() {
+export default function TabsScreen() {
     return (    
         <>
             <Header />
@@ -62,7 +62,7 @@ export default function HomeScreen() {
                     showIcon: true,
                 }
             }>
-                <Tab.Screen name="Populaires" component={PopularScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Populaires') }}/>
+                <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Home') }}/>
                 <Tab.Screen name="Liste" component={ListScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Liste') }}/>
                 <Tab.Screen name="Favoris" component={FavoriteScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Favoris') }}/>
             </Tab.Navigator>

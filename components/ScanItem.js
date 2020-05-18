@@ -14,9 +14,6 @@ export default class ScanItem extends PureComponent {
             scan: this.props.scan,
         }
     }
-    // async componentDidMount() {
-    //     this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
-    // }
 
     getFontsize(length) {
         let size = infoWidth / (length / 1.9);
