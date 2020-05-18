@@ -10,9 +10,10 @@ export default class ScanItem extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            seen: false
+            seen: false,
+            scan: this.props.scan,
+            init: false
         }
-    }
 
     async componentDidMount() {
         this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
