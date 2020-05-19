@@ -15,13 +15,14 @@ const Tab = createMaterialTopTabNavigator();
 function iconStyle(focused, color, name) {
     let iconName;
     if (name === 'Home') {
-        iconName = focused ? 'ios-star' : 'ios-star-outline';
+        iconName = focused ? 'torii-gate' : 'torii-gate';
     } else if (name === 'Liste') {
-        iconName = focused ? 'list-ul' : 'ios-list';
+        iconName = focused ? 'list-ul' : 'list-ul';
     } else if (name === 'Favoris') {
         iconName = focused ? 'ios-heart' : 'ios-heart-empty'
     }
-    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={19} /> 
+    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={19} />
+    if (iconName === 'torii-gate') return <FontAwesome5 name="torii-gate" size={19} color={color} />
     return <Ionicons name={iconName} color={color} size={25}/>;
 }
 

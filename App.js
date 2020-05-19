@@ -11,12 +11,6 @@ const colors = require('./colors.json').default
 const Stack = createStackNavigator();
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      populars: null
-    }
-  }
 
   async componentDidMount() {
     const favorites = await AsyncStorage.getItem('favorites');

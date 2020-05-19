@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, View, Dimensions, StyleSheet, Text } from 'react-native';
 import ImgItem from './ImgItem';
 import Row from './Row';
+
+const color = require('../colors.json').default
 
 export default class ImgList extends Component {
 
     renderImgItem() {
-        let copy = [...this.props.data];
+        let copy = [...this.props.populars];
         let finalArray = [];
         let columns = [];
         
@@ -24,11 +26,13 @@ export default class ImgList extends Component {
 
     render(){
         return(
-            <ScrollView contentContainerStyle={s.scrollContainer}>
+            <View style={s.scrollContainer}>
+                <Text style={s.title}>Mises à jour des mangas populaires : </Text>
                 <View style={{flex: 1}}>
                     {this.renderImgItem()}
                 </View>
-            </ScrollView>
+                <Text style={[s.title, {marginTop: 30}]}>Dernières mises à jour mangas : </Text>
+            </View>
         )
     }
 }
@@ -38,7 +42,13 @@ const finalHeight = ((((width * 0.33) / 1) * 1.4 - 7) + ((((width * 0.33) / 1) *
 
 const s = StyleSheet.create({
     scrollContainer: {
-        height: finalHeight + 45,
+        height: finalHeight + 170,
         paddingVertical: 20,
     },
+    title: {
+        color: color.text,
+        fontSize: 20,
+        textAlign: "center",
+        marginBottom: 20
+    }
 })

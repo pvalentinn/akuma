@@ -7,7 +7,7 @@ const color = require('../colors.json').default
 export default class Favorites extends Component {
     render() {
         let favorites = this.props.favorites;
-        console.log(favorites)
+        // console.log(favorites)
         if (favorites.length === 0) 
         return (
             <View style={s.container}>

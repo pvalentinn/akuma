@@ -29,7 +29,9 @@ export default async function getHomeInfos() {
                 id: `${i}`,
                 name: element.find('a').first().text(),
                 date: date.replace(regex, ''),
-                scan: element.find('a').last().attr('href')
+                scanLink: element.find('h6 > a').first().attr('href'),
+                scanName: element.find('h6 > a').first().text().slice(5),
+                infos: element.find('.badge.badge-info').text() === 'VUS' ? element.find('.badge.badge-info').text() : null
             });
         });
 

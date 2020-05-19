@@ -14,12 +14,11 @@ export default class HomePage extends Component {
 
     render() {
         return (
-            <View>
-                <ImgList data={this.state.populars}/>
-                <ReleasesList data={this.state.releases}/>
+            <View> 
+                {/* <ImgList populars={this.state.populars}/> */}
+                <ReleasesList realeases={this.state.releases} populars={this.state.populars}/>
             </View>
         )
     }
 }
 
-const height = Dimensions.get('window').height * 2
