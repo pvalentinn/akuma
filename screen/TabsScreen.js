@@ -17,12 +17,11 @@ function iconStyle(focused, color, name) {
     if (name === 'Home') {
         iconName = focused ? 'torii-gate' : 'torii-gate';
     } else if (name === 'Liste') {
-        iconName = focused ? 'list-ul' : 'list-ul';
+        iconName = focused ? 'ios-list' : 'ios-list';
     } else if (name === 'Favoris') {
         iconName = focused ? 'ios-heart' : 'ios-heart-empty'
     }
-    if (iconName === 'list-ul') return <FontAwesome5 name={iconName} color={color} size={19} />
-    if (iconName === 'torii-gate') return <FontAwesome5 name="torii-gate" size={19} color={color} />
+    if (iconName === 'torii-gate') return <FontAwesome5 name="torii-gate" size={18} color={color} />
     return <Ionicons name={iconName} color={color} size={25}/>;
 }
 

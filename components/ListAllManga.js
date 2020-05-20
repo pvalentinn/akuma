@@ -72,6 +72,7 @@ class ResultsTable extends PureComponent {
                     onEndReached={this.handleEnd}
                     onEndReachedThreshold={0.1}
                     ListFooterComponent={!this.state.i ? <View /> : <Loading />}
+                    // style={{backgroundColor: color.darkBackground}}
                 />
             </View>
         )
@@ -83,7 +84,7 @@ class Item extends PureComponent {
         return (
             <TouchableWithoutFeedback onPress={() => RootNavigation.navigate('Manga', {name: this.props.text})}>
                 <View style={{height: 50, width: '100%', marginLeft: 5}}>
-                    <Text>{this.props.text}</Text>
+                    <Text style={{color: color.text}}>{this.props.text}</Text>
                 </View>
             </TouchableWithoutFeedback>     
         )

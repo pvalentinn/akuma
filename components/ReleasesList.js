@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import * as RootNavigation from '../RootNavigation'
 import ImgList from './ImgList';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const color = require('../colors.json').default
 
@@ -38,23 +39,25 @@ export default class ReleasesList extends Component {
 
     render() {
         return (
-                <View style={s.container}>
-                    <Text style={s.title}>Dernières mises à jour mangas : </Text>
-                    <FlatList 
-                        data={this.state.data}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({item}) => <Item key={item.id} data={item} />}
-                        onEndReached={this.handleEnd}
-                        onEndReachedThreshold={0.1}
-                        ListFooterComponent={!this.state.i ? <View /> : <Loading />}
-                        nestedScrollEnabled
-                    />
-                </View>
+                <ScrollView horizontal>
+                    <View style={s.container}>
+                        <Text style={s.title}>Dernières mises à jour mangas : </Text>
+                        <FlatList 
+                            data={this.state.data}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({item}) => <Item key={item.id} data={item} />}
+                            onEndReached={this.handleEnd}
+                            onEndReachedThreshold={0.1}
+                            ListFooterComponent={!this.state.i ? <View /> : <Loading />}
+                            nestedScrollEnabled
+                        />
+                    </View>
+                </ScrollView>
         )
     }
 }
 
-class Item extends Component {
+class Item extends PureComponent {
 
     getFontSize = (string) => {
         let size = nameDivWidth / (string / 1.9);
@@ -97,7 +100,7 @@ const scanDivWidth = (width * 0.6) / 1;
 
 const s = StyleSheet.create({
     container: {
-        height: 300
+        height: 225
     },
     title: {
         color: color.text,

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ScrollView
 import ReleasesList from './ReleasesList';
 import ImgList from './ImgList';
 
-const height = (Dimensions.get('screen').height - StatusBar.currentHeight) + 200
+const height = (Dimensions.get('screen').height - StatusBar.currentHeight)
 
 export default class HomePage extends Component {
     constructor(props) {
@@ -17,9 +17,9 @@ export default class HomePage extends Component {
     render() {
         return (
             <ScrollView nestedScrollEnabled>
-                <View style={{height: height}}>
-                        <ImgList populars={this.state.populars} />
-                        <ReleasesList realeases={this.state.releases} />
+                <View>
+                    <ImgList populars={this.state.populars} />
+                    <ReleasesList realeases={this.state.releases} />
                 </View>
             </ScrollView>
         )

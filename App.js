@@ -60,6 +60,6 @@ export default class App extends Component {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background
+    backgroundColor: colors.background,
   },
 });
