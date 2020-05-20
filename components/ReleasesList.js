@@ -32,13 +32,14 @@ export default class ReleasesList extends Component {
             return this.setState({i: 0})
         } else {
             let toAdd = this.next15();
-            return this.setState({data: [...copyData, ...toAdd], i: index+35})
+            return this.setState({data: [...copyData, ...toAdd], i: index+15})
         }
     }
 
     render() {
         return (
-                <View>
+                <View style={s.container}>
+                    <Text style={s.title}>Dernières mises à jour mangas : </Text>
                     <FlatList 
                         data={this.state.data}
                         keyExtractor={(item) => item.id}
@@ -46,7 +47,7 @@ export default class ReleasesList extends Component {
                         onEndReached={this.handleEnd}
                         onEndReachedThreshold={0.1}
                         ListFooterComponent={!this.state.i ? <View /> : <Loading />}
-                        ListHeaderComponent={<ImgList populars={this.props.populars}/>}
+                        nestedScrollEnabled
                     />
                 </View>
         )

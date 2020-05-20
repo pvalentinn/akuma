@@ -31,7 +31,6 @@ export default class ImgList extends Component {
                 <View style={{flex: 1}}>
                     {this.renderImgItem()}
                 </View>
-                <Text style={[s.title, {marginTop: 30}]}>Dernières mises à jour mangas : </Text>
             </View>
         )
     }
@@ -42,7 +41,7 @@ const finalHeight = ((((width * 0.33) / 1) * 1.4 - 7) + ((((width * 0.33) / 1) *
 
 const s = StyleSheet.create({
     scrollContainer: {
-        height: finalHeight + 170,
+        height: finalHeight + 95,
         paddingVertical: 20,
     },
     title: {
