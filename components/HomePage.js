@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, ScrollView, StatusBar, RefreshControl, AsyncStorage } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import ReleasesList from './ReleasesList';
 import ImgList from './ImgList';
 
-const height = (Dimensions.get('screen').height - StatusBar.currentHeight)
 
 export default class HomePage extends Component {
     constructor(props) {

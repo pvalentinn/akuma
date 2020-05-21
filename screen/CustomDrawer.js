@@ -1,24 +1,21 @@
 import React from 'react';
-import { StyleSheet, View, AsyncStorage, TouchableNativeFeedback, Text } from 'react-native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import { StyleSheet, View, TouchableNativeFeedback, Text, Dimensions, StatusBar, Image } from 'react-native';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons'; 
 
-const color = require('../colors.json').default
+const color = require('../colors.json').default;
+const height = Dimensions.get('window').height - StatusBar.currentHeight;
 
 let margin = (index) => {
-    if (!index) return 150;
-    else if (index === 4) return 300;
+    if (!index) return 0;
+    else if (index === 4) return height * 0.55;
     else return 2
 }
 
 export default function CustomDrawer(props) {
     return (
       <DrawerContentScrollView>
+          <Image source={require('../assets/akumascanswhite.png')} style={s.img}/>
           {props.state.routeNames.map((route, idx) => {
             if (route ===  "Manga" || route ===  "Scan") return null;
             const focused = idx === props.state.index;
@@ -38,11 +35,17 @@ export default function CustomDrawer(props) {
               </TouchableNativeFeedback>
             );
           })}
+          <Text style={{color: color.text}}>App made by @LenGaL</Text>
       </DrawerContentScrollView>
     ) 
 }
 
 const s = StyleSheet.create({
+    img:{
+        height: 75,
+        width: 75 * 2.38,
+        marginLeft: 25
+    },
     itemDiv: {
         height: 50, 
         width: '100%', 
@@ -55,6 +58,6 @@ const s = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        marginLeft: 3 
+        marginLeft: 6 
     }
 });

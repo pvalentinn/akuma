@@ -4,9 +4,20 @@ import * as RootNavigation from '../RootNavigation'
 import ImgList from './ImgList';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const color = require('../colors.json').default
+const color = require('../colors.json').default;
+const width = Dimensions.get('window').width;
+const nameDivWidth = (width * 0.4) / 1; 
+const scanDivWidth = (width * 0.6) / 1;
 
-let Loading = () => <ActivityIndicator size={57} color={color.dark} />
+let Loading = () => <ActivityIndicator size={57} color={color.dark} />;
+let HeaderList = () => {
+    return(
+        <View style={s.headerListDiv}>
+            <Text style={[s.headerListText, {width: nameDivWidth, borderRightColor: color.borders, borderRightWidth: 1 }]}>Nom</Text>
+            <Text style={[s.headerListText, {width: scanDivWidth }]}>Dernier Scan</Text>
+        </View>
+    )
+}
 
 export default class ReleasesList extends Component {
     constructor(props) {
@@ -42,6 +53,7 @@ export default class ReleasesList extends Component {
                 <ScrollView horizontal>
                     <View style={s.container}>
                         <Text style={s.title}>Dernières mises à jour mangas : </Text>
+                        <HeaderList />
                         <FlatList 
                             data={this.state.data}
                             keyExtractor={(item) => item.id}
@@ -94,10 +106,6 @@ class Item extends PureComponent {
     }
 }
 
-const width = Dimensions.get('window').width;
-const nameDivWidth = (width * 0.4) / 1; 
-const scanDivWidth = (width * 0.6) / 1; 
-
 const s = StyleSheet.create({
     container: {
         height: 225
@@ -107,6 +115,19 @@ const s = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginBottom: 20
+    },
+    headerListDiv: {
+        width: '100%', 
+        height: 25, 
+        flex: 0, 
+        flexDirection: 'row'
+    },
+    headerListText: {
+        height: '100%', 
+        fontSize: 17, 
+        textAlign: 'center',
+        color: color.text,
+        backgroundColor: color.darkBackground
     },
     itemContainer: {
         height: 75,
