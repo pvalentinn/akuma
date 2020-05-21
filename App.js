@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
+import { StyleSheet, View, AsyncStorage, TouchableNativeFeedback, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { navigationRef } from './RootNavigation';
-import TabsScreen from './screen/TabsScreen'
-import MangaScreen from './screen/MangaScreen'
-import ScanScreen from './screen/ScanScreen'
+import TabsScreen from './screen/TabsScreen';
+import MangaScreen from './screen/MangaScreen';
+import ScanScreen from './screen/ScanScreen';
+import CustomDrawer from './screen/CustomDrawer';
+import HistoryScreen from './screen/HistoryScreen';
+import ParamScreen from './screen/ParamScreen';
 
-const colors = require('./colors.json').default
-const Stack = createStackNavigator();
+const color = require('./colors.json').default
+const Drawer = createDrawerNavigator();
 
 export default class App extends Component {
 
@@ -40,17 +43,19 @@ export default class App extends Component {
         <NavigationContainer theme={{
               dark: false,
               colors: {
-                primary: colors.active,
-                card: colors.borders,
-                text: colors.text,
-                border: colors.borders,
+                primary: color.active,
+                card: color.borders,
+                text: color.text,
+                border: color.borders,
               }
             }} ref={navigationRef}>
-          <Stack.Navigator screenOptions={{headerShown: false }} >
-            <Stack.Screen name="Tabs" component={TabsScreen} />
-            <Stack.Screen name="Manga" component={MangaScreen} />
-            <Stack.Screen name="Scan" component={ScanScreen} />
-          </Stack.Navigator>
+          <Drawer.Navigator screenOptions={{headerShown: false }} drawerContent={props => <CustomDrawer {...props} /> }>
+            <Drawer.Screen name="Tabs" component={TabsScreen} />
+            <Drawer.Screen name="Manga" component={MangaScreen} />
+            <Drawer.Screen name="Scan" component={ScanScreen} options={{gestureEnabled: false}} />
+            <Drawer.Screen name="Historique" component={HistoryScreen} />
+            <Drawer.Screen name="Paramètres" component={ParamScreen} />
+          </Drawer.Navigator>
         </NavigationContainer>
       </View>
     );
@@ -60,6 +65,6 @@ export default class App extends Component {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: color.background,
   },
 });

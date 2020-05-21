@@ -49,10 +49,10 @@ function ListScreen() {
     else return <ListAllManga data={data.list}/>
 }
 
-export default function TabsScreen() {
+export default function TabsScreen({ navigation }) {
     return (    
         <>
-            <Header />
+            <Header open={() => navigation.openDrawer()} />
             <Tab.Navigator
             tabBarPosition='bottom' 
             tabBarOptions={

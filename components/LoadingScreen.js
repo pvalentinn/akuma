@@ -13,10 +13,7 @@ export default class LoadingScreen extends Component {
     }
 
     render() {
-        console.log(this.state.i)
-        let heightImg = this.state.height
-        let widthImg = this.state.width - 60
-        let styleVegeta = {height: 124 * 1.2, width: 82 * 1.2, position: "absolute", bottom: 2, right: 0};
+        let widthImg = this.state.width - 20
         let style = { width: widthImg, height: widthImg / 1.77 }
         return (
             <View 
@@ -24,9 +21,7 @@ export default class LoadingScreen extends Component {
             onLayout={(event) => {
                 let {x, y, width, height} = event.nativeEvent.layout; this.setState({height: height, width: width })}
             }>
-                {/* <Image source={require('../assets/loading.png')} style={style} /> */}
                 <Image source={require('../assets/loading.gif')} style={style} />
-                {/* { this.state.i === 1 ? <Image source={require('../assets/vegeta.gif')} style={styleVegeta} /> : <Image source={require('../assets/tanjiro.gif')} /> } */}
             </View>
         )
     }
