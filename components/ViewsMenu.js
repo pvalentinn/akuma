@@ -4,7 +4,7 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { Entypo } from '@expo/vector-icons'; 
 const color = require('../colors.json').default
 
-import { addToHistory, removeFromHistory, addMultipleToHistory, removeMultipleFromHistory } from '../API/history';
+import { addToHistory, removeFromHistory, addMultipleToHistory, removeMultipleFromHistory } from '../API/historyFunctions';
 
 export default function ViewsMenu(props) {
     const menu = useRef();

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import * as RootNavigation from '../RootNavigation'
 import ViewsMenu from './ViewsMenu';
-import { isScanInHistory } from '../API/history';
+import { isScanInHistory } from '../API/historyFunctions';
 const color = require('../colors.json').default
 
 export default class ScanItem extends PureComponent {
@@ -14,6 +14,10 @@ export default class ScanItem extends PureComponent {
             scan: this.props.scan,
         }
     }
+    
+    async componentDidMount() {
+      this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
+    }
 
     getFontsize(length) {
         let size = infoWidth / (length / 1.9);
@@ -23,7 +27,6 @@ export default class ScanItem extends PureComponent {
 
     render() {
         let scan = this.state.scan;
-        setTimeout(async() => this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)}))
         return (
             <TouchableWithoutFeedback onPress={() => RootNavigation.navigate('Scan', {link: scan.link})}>
                 <View style={[s.scan, {backgroundColor: this.state.seen ? color.darkBackground : color.background}]}>

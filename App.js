@@ -51,8 +51,8 @@ export default class App extends Component {
             }} ref={navigationRef}>
           <Drawer.Navigator screenOptions={{headerShown: false }} drawerContent={props => <CustomDrawer {...props} /> }>
             <Drawer.Screen name="Tabs" component={TabsScreen} />
-            <Drawer.Screen name="Manga" component={MangaScreen} />
-            <Drawer.Screen name="Scan" component={ScanScreen} options={{gestureEnabled: false}} />
+            <Drawer.Screen name="Manga" component={MangaScreen} options={{unmountOnBlur: true}}/>
+            <Drawer.Screen name="Scan" component={ScanScreen} options={{gestureEnabled: false, unmountOnBlur: true}} />
             <Drawer.Screen name="Historique" component={HistoryScreen} />
             <Drawer.Screen name="Paramètres" component={ParamScreen} />
           </Drawer.Navigator>
