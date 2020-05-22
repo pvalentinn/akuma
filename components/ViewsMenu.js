@@ -27,7 +27,7 @@ export default function ViewsMenu(props) {
     }
     
     const handleMultipleAddToHistory = async () => {
-        await addMultipleToHistory(props.name, props.id)
+        await addMultipleToHistory(props.name, props.img, props.id)
         menu.current.hide()
         props.updateDisplay()
         if(props.favorite) await update(props.name)

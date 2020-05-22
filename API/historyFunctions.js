@@ -15,7 +15,7 @@ export async function handleRelease(name, scanLink) {
         let links = $('.chapter-title-rtl > a')
         let arrayUrl = [];
         links.each((i, e) => arrayUrl.unshift($(e).attr('href')))
-        let i = arrayUrl.indexOf(scanLink);
+        let i = arrayUrl.indexOf(scanLink) + 1;
         return {
             name: name,
             img: `https:${$('.img-responsive').attr('src')}`,
@@ -44,7 +44,7 @@ export async function addToHistory(name, img, id) {
     let found = history.find(e => e.name === name);
     if(!found) {
         console.log('doesnt exist');
-        history.push({name: name, img: img, seen: [ parseInt(id) ]});
+        history.unshift({name: name, img: img, seen: [ parseInt(id) ]});
     } else {
         console.log('exist');
         if (found.seen.find(e => e === id )) return;
@@ -70,12 +70,12 @@ export async function removeFromHistory(name, id) {
     return await AsyncStorage.setItem('history', JSON.stringify(history))
 }
 
-export async function addMultipleToHistory(name, id) {
+export async function addMultipleToHistory(name, img, id) {
     let history = await getHistory();
     let found = history.find(e => e.name === name);
     let index = parseInt(id);
     if(!found) {
-        history.push({name: name, img: img, seen: []});
+        history.unshift({name: name, img: img, seen: []});
         found = history.find(e => e.name === name);
     }
     for(index; index > 0; index--) {
