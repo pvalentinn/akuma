@@ -7,6 +7,8 @@ const color = require('../colors.json').default;
 const width = Dimensions.get('screen').width;
 const itemTextDivWidth = (width - 150 / 1.4) - 29;
 
+let arrayOfItems = []
+
 let getFontSizeTitle = (string) => {
     let size = itemTextDivWidth / (string / 1.9);
     if(size > 25) size = 25;
@@ -17,6 +19,11 @@ let getFontSizeScan = (string) => {
     let size = itemTextDivWidth / (string / 1.9);
     if(size > 20) size = 20;
     return size < 14 ? 14 : size;
+}
+
+export let update = async (name) => {
+    let found = arrayOfItems.find(e => e.props.item.name === name);
+    if(found.props.item.name === name) found.setState({scan: await getScanInfoFromId(found.props.item.name)})
 }
 
 export default class Favorites extends Component {
@@ -64,7 +71,8 @@ class Item extends PureComponent {
     }
 
     async componentDidMount() {
-        this.setState({scan: await getScanInfoFromId(this.props.item.name)})
+        this.setState({scan: await getScanInfoFromId(this.props.item.name)});
+        arrayOfItems.push(this);
     }
 
     render() {

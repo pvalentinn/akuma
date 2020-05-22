@@ -13,10 +13,16 @@ export default class ScanItem extends PureComponent {
             seen: false,
             scan: this.props.scan,
         }
+        this._isMounted = false;
     }
     
     async componentDidMount() {
-      this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
+        this._isMounted = true
+        this._isMounted && this.setState({seen: await isScanInHistory(this.props.name, this.props.scan.id)})
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
     getFontsize(length) {
@@ -35,7 +41,7 @@ export default class ScanItem extends PureComponent {
                     </View>
                     <View style={s.nameDiv}>
                         <Text style={[{fontSize: this.getFontsize(this.props.length), marginLeft: 3, flex: 1}, s.text]}>{scan.name}</Text>
-                        <ViewsMenu id={scan.id} name={this.props.name} setState={bool => this.setState({seen: bool})} updateDisplay={this.props.updateDisplay}/>
+                        <ViewsMenu id={scan.id} name={this.props.name} img={this.props.img} setState={bool => this.setState({seen: bool})} updateDisplay={this.props.updateDisplay} favorite={this.props.favorite}/>
                     </View>
                 </View>
             </TouchableWithoutFeedback>

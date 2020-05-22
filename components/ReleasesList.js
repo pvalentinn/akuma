@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity, Dimensions
 import * as RootNavigation from '../RootNavigation'
 import ImgList from './ImgList';
 import { ScrollView } from 'react-native-gesture-handler';
+import { handleRelease } from '../API/historyFunctions';
 
 const color = require('../colors.json').default;
 const width = Dimensions.get('window').width;
@@ -78,7 +79,10 @@ class Item extends PureComponent {
     }
 
     goToManga = () => RootNavigation.navigate('Manga', {name: this.props.data.name});
-    goToScan = () => RootNavigation.navigate('Scan', {link: this.props.data.scanLink})
+    goToScan = async () => {
+        await handleRelease(this.props.data.name, this.props.data.scanLink)
+        RootNavigation.navigate('Scan', {link: this.props.data.scanLink})
+    }
 
     render() {
         let manga = this.props.data

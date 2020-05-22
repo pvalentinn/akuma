@@ -53,7 +53,7 @@ export default class App extends Component {
             <Drawer.Screen name="Tabs" component={TabsScreen} />
             <Drawer.Screen name="Manga" component={MangaScreen} options={{unmountOnBlur: true}}/>
             <Drawer.Screen name="Scan" component={ScanScreen} options={{gestureEnabled: false, unmountOnBlur: true}} />
-            <Drawer.Screen name="Historique" component={HistoryScreen} />
+            <Drawer.Screen name="Historique" component={HistoryScreen} options={{unmountOnBlur: true}}/>
             <Drawer.Screen name="Paramètres" component={ParamScreen} />
           </Drawer.Navigator>
         </NavigationContainer>

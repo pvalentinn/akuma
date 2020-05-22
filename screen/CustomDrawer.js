@@ -8,7 +8,7 @@ const height = Dimensions.get('window').height - StatusBar.currentHeight;
 
 let margin = (index) => {
     if (!index) return 0;
-    else if (index === 4) return height * 0.55;
+    else if (index === 4) return height * 0.65 -25;
     else return 2
 }
 

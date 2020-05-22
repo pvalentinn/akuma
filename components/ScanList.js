@@ -46,7 +46,7 @@ export default class ScanList extends Component {
                 <FlatList 
                     data={this.state.data}
                     keyExtractor={(item, index) => `${index}`}
-                    renderItem={({item}) => <ScanItem scan={item} length={this.props.name.length} key={item.key} name={this.props.name} updateDisplay={this.updateDisplay} />}
+                    renderItem={({item}) => <ScanItem scan={item} length={this.props.name.length} key={item.key} name={this.props.name} img={this.props.img} updateDisplay={this.updateDisplay} favorite={this.props.favorite}/>}
                     onEndReached={this.handleEnd}
                     onEndReachedThreshold={0.1}
                     ListFooterComponent={!this.state.i ? <View /> : <Loading />}

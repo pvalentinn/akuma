@@ -25,13 +25,23 @@ export default async function getHomeInfos() {
             let element = $(e);
             let regex = /\s+/g;
             let date = element.find('small').text();
+            let infos = () => {
+                let text = element.find('.badge.badge-info').text();
+                if(text === 'VUS' || text === 'RAW') return element.find('.badge.badge-info').text();
+                else return null
+            }
+            let scanName = () => {
+                let name = element.find('h6 > a').first().text().slice(5);
+                name = name.includes('Attention:RAW') ? name.slice(0, name.indexOf('Attention:RAW')) : name
+                return name.endsWith(' : ') ? name.slice(0, name.indexOf(' : ')) : name;
+            }
             result.releases.push({
                 id: `${i}`,
                 name: element.find('a').first().text(),
                 date: date.replace(regex, ''),
                 scanLink: element.find('h6 > a').first().attr('href'),
-                scanName: element.find('h6 > a').first().text().slice(5),
-                infos: element.find('.badge.badge-info').text() === 'VUS' ? element.find('.badge.badge-info').text() : null
+                scanName: scanName(),
+                infos: infos()
             });
         });
 

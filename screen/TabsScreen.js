@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, lazy } from 'react';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomePage from '../components/HomePage';
@@ -54,6 +54,8 @@ export default function TabsScreen({ navigation }) {
         <>
             <Header open={() => navigation.openDrawer()} />
             <Tab.Navigator
+            lazy
+            lazyPreloadDistance={1}
             tabBarPosition='bottom' 
             tabBarOptions={
                 {
@@ -64,7 +66,7 @@ export default function TabsScreen({ navigation }) {
             }>
                 <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Home') }}/>
                 <Tab.Screen name="Liste" component={ListScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Liste') }}/>
-                <Tab.Screen name="Favoris" component={FavoriteScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Favoris') }}/>
+                <Tab.Screen name="Favoris" component={FavoriteScreen} options={{ tabBarIcon: (tabInfo) => iconStyle(tabInfo.focused, tabInfo.color, 'Favoris')}}/>
             </Tab.Navigator>
         </>
     )

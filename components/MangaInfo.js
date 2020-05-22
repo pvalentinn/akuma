@@ -105,7 +105,7 @@ export default class MangaInfo extends Component {
                         <Text style={[s.nameManga, {fontSize: this.getFontsize(manga.name.length)}]}>{manga.name}</Text>
                    </View>
                 </View>
-                    {this.state.refreshing ? <LoadingScreen /> : <ScanList scans={manga.scans} name={manga.name} update={() => this.setState({refreshing: true}, () => this.setState({refreshing: false}))} />}
+                    {this.state.refreshing ? <LoadingScreen /> : <ScanList scans={manga.scans} name={manga.name} img={manga.img} update={() => this.setState({refreshing: true}, () => this.setState({refreshing: false}))} favorite={this.state.favorite} />}
             </ScrollView>
         )
     }

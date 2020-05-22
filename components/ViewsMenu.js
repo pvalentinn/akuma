@@ -5,6 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 const color = require('../colors.json').default
 
 import { addToHistory, removeFromHistory, addMultipleToHistory, removeMultipleFromHistory } from '../API/historyFunctions';
+import { update } from './Favorites';
 
 export default function ViewsMenu(props) {
     const menu = useRef();
@@ -12,14 +13,16 @@ export default function ViewsMenu(props) {
     const showMenu = () => menu.current.show();
 
     const handleAddToHistory = async () => {
-        await addToHistory(props.name, props.id)
+        await addToHistory(props.name, props.img, props.id)
         props.setState(true)
+        if(props.favorite) await update(props.name)
         menu.current.hide()
     }
 
     const handleRemoveFromHistory = async () => {
         await removeFromHistory(props.name, props.id)
-        props.setState(false) 
+        props.setState(false)
+        if(props.favorite) await update(props.name) 
         menu.current.hide()
     }
     
@@ -27,12 +30,14 @@ export default function ViewsMenu(props) {
         await addMultipleToHistory(props.name, props.id)
         menu.current.hide()
         props.updateDisplay()
+        if(props.favorite) await update(props.name)
     }
 
     const handleMultipleRemoveToHistory = async () => {
         await removeMultipleFromHistory(props.name, props.id)
         menu.current.hide()
         props.updateDisplay()
+        if(props.favorite) await update(props.name)
     }
 
     return(

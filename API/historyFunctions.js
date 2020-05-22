@@ -7,6 +7,24 @@ async function getHistory() {
     return JSON.parse(json)
 }
 
+export async function handleRelease(name, scanLink) {
+    let finalString = await clearString(name);
+    let infos = await axios.get(`https://www.frscan.me/manga/${finalString}`)
+    .then((res) => {
+        let $ = cheerio.load(res.data);
+        let links = $('.chapter-title-rtl > a')
+        let arrayUrl = [];
+        links.each((i, e) => arrayUrl.unshift($(e).attr('href')))
+        let i = arrayUrl.indexOf(scanLink);
+        return {
+            name: name,
+            img: `https:${$('.img-responsive').attr('src')}`,
+            id: i
+        }
+    })
+    return await addToHistory(infos.name, infos.img, infos.id);
+}
+
 export async function isScanInHistory(name, id) {
     const json = await AsyncStorage.getItem('history');
     const history = await JSON.parse(json);
@@ -21,12 +39,12 @@ export async function isScanInHistory(name, id) {
     }
 }
 
-export async function addToHistory(name, id) {
+export async function addToHistory(name, img, id) {
     let history = await getHistory();
     let found = history.find(e => e.name === name);
     if(!found) {
         console.log('doesnt exist');
-        history.push({name: name, seen: [ parseInt(id) ]});
+        history.push({name: name, img: img, seen: [ parseInt(id) ]});
     } else {
         console.log('exist');
         if (found.seen.find(e => e === id )) return;
@@ -57,7 +75,7 @@ export async function addMultipleToHistory(name, id) {
     let found = history.find(e => e.name === name);
     let index = parseInt(id);
     if(!found) {
-        history.push({name: name, seen: []});
+        history.push({name: name, img: img, seen: []});
         found = history.find(e => e.name === name);
     }
     for(index; index > 0; index--) {
@@ -74,8 +92,9 @@ export async function removeMultipleFromHistory(name, id) {
     let found = history.find(e => e.name === name);
     let index = parseInt(id)
     if(!found) {
-        history.push({name: name, seen: []});
-        found = history.find(e => e.name === name);
+        // history.push({name: name, seen: []});
+        // found = history.find(e => e.name === name);
+        console.log('doesnt exist do nothing multiple');
     }
     for(index; index > 0; index--) {
         let where = found.seen.indexOf(index)
