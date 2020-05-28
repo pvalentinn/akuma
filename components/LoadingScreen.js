@@ -8,7 +8,6 @@ export default class LoadingScreen extends Component {
         this.state = {
             height: 0,
             width: 0,
-            i: Math.floor(Math.random() * 2) + 1 
         }
     }
 
