@@ -2,28 +2,21 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 const color = require('../colors.json').default
 
-export default class LoadingScreen extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            height: 0,
-            width: 0,
-        }
-    }
+const width = Dimensions.get('screen').width
 
-    render() {
-        let widthImg = this.state.width - 20
-        let style = { width: widthImg, height: widthImg / 1.77 }
-        return (
-            <View 
-            style={styles.container} 
-            onLayout={(event) => {
-                let {x, y, width, height} = event.nativeEvent.layout; this.setState({height: height, width: width })}
-            }>
-                <Image source={require('../assets/loading.gif')} style={style} />
-            </View>
-        )
-    }
+let arrayImg = [require('../assets/opmmini.gif'), require('../assets/narutomini.gif'), require('../assets/dbzmini.gif')];
+let widthImg = width - 30;
+let number = 0
+
+export default function LoadingScreen() {
+    number === 0 ? number = 1 : number === 1 ? number = 2 : number = 0;
+    let style = number === 2 ? { width: widthImg, height: widthImg / 2.06 } : { width: widthImg, height: widthImg / 1.77 };
+    let img = arrayImg[number];
+    return (
+        <View style={styles.container}>
+            <Image source={img} style={style} />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
