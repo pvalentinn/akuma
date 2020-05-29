@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 const color = require('../colors.json').default
 
