@@ -6,7 +6,7 @@ export default async function getHomeInfos() {
         populars: [],
         releases: []
     };
-    await axios.get('https://www.frscan.me/')
+    await axios.get('https://frscan.cc/')
     .then(res => {
         let $ = cheerio.load(res.data);
         let populars = $('.span3');

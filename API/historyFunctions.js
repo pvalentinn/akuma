@@ -9,7 +9,7 @@ async function getHistory() {
 
 export async function handleRelease(name, scanLink) {
     let finalString = await clearString(name);
-    let infos = await axios.get(`https://www.frscan.me/manga/${finalString}`)
+    let infos = await axios.get(`https://frscan.cc/manga/${finalString}`)
     .then((res) => {
         let $ = cheerio.load(res.data);
         let links = $('.chapter-title-rtl > a')
@@ -120,7 +120,7 @@ export async function getScanInfoFromId(name) {
 async function searchScan(string, max = 1) {
     let result;
     let finalString = await clearString(string);
-    await axios.get(`https://www.frscan.me/manga/${finalString}`)
+    await axios.get(`https://frscan.cc/manga/${finalString}`)
     .then(res => {
         let $ = cheerio.load(res.data);
         let chapters = $('.chapter-title-rtl');

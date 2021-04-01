@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, ScrollView, Dimensions, Image, ActivityIndicator } from 'react-native';
-import LoadingScreen from './LoadingScreen';
 
 const color = require('../colors.json').default
 
@@ -14,13 +13,11 @@ export default function ScanView(props) {
             renderItem={({item}) => <Item img={item.src} />}
             initialNumToRender={5}
             horizontal
-            // contentContainerStyle={{ flex: 0, alignItems: 'center',}}
             />
         </View>
     )
 }
 
-let getHeight = (screenWidth, imgWidth, height) => (imgWidth * height) / screenWidth;
 let Loading = () => {
     return (
         <View>
@@ -44,7 +41,7 @@ function Item(props) {
             setDimensions({width: obj.width, height: obj.height})
         }
         getSize(); 
-        return <Loading />
+        return <View />
     } else {
         let fraction = dimensions.height / dimensions.width;
         let screenWidth = Dimensions.get('window').width;

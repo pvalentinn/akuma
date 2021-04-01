@@ -4,7 +4,7 @@ import cheerio from 'react-native-cheerio';
 export default async function searchManga(string) {
     let finalString = await clearString(string)
     let result;
-    await axios.get(`https://www.frscan.me/manga/${finalString}`).then(res => {
+    await axios.get(`https://frscan.cc/manga/${finalString}`).then(res => {
         let $ = cheerio.load(res.data);
         let chapters = $('.chapter-title-rtl');
         let scans = [];

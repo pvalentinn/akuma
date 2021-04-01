@@ -3,7 +3,7 @@ import cheerio from 'react-native-cheerio';
 
 export default async function getAll() {
     let result = []
-    await axios.get('https://www.frscan.me/changeMangaList?type=text')
+    await axios.get('https://frscan.cc/changeMangaList?type=text')
     .then(res => {
         let $ = cheerio.load(res.data);
         let mangas = $('h6');
