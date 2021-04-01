@@ -37,6 +37,7 @@
     "android": {
       "package": "com.keidevpv.akuma",
       "versionCode": 1
-    }
+    },
+    "description": ""
   }
 }

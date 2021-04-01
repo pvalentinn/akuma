@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AsyncStorage, View } from 'react-native';
+import { View } from 'react-native';
 import LoadingScreen from '../components/LoadingScreen';
 
 export default function ParamScreen( {route} ) {

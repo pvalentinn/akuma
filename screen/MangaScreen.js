@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MangaInfo from '../components/MangaInfo';
 import searchManga from '../API/searchManga';
 import LoadingScreen from '../components/LoadingScreen';

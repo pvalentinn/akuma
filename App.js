@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage, TouchableNativeFeedback, Text } from 'react-native';
+import { StyleSheet, View, TouchableNativeFeedback, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { navigationRef } from './RootNavigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import TabsScreen from './screen/TabsScreen';
 import MangaScreen from './screen/MangaScreen';
 import ScanScreen from './screen/ScanScreen';

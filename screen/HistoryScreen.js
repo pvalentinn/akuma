@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AsyncStorage, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingScreen from '../components/LoadingScreen';
 import { History } from '../components/History';
 

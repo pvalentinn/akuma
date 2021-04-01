@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScanView from '../components/ScanView';
 import searchScan from '../API/searchScan';
 import LoadingScreen from '../components/LoadingScreen';

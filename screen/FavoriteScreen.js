@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import LoadingScreen from '../components/LoadingScreen';
 import Favorites from '../components/Favorites';
@@ -25,6 +25,7 @@ export default function FavoriteScreen() {
             try {
                 const value = await AsyncStorage.getItem('favorites');
                 setData({favorites: JSON.parse(value)})
+                console.log(data);
             } catch(e) {
                 console.log(e)
             }
