@@ -7,7 +7,7 @@ It supports research, favorites, history and more ...
 The app is not out in public for now.  
 
 ## VISUAL :
-![](https://s3.gifyu.com/images/anim30.gif)
+![](https://s5.gifyu.com/images/animW275.gif)
 
 ## FEATURES :
 Available features as of now :
@@ -29,4 +29,4 @@ To come next :
 Paul VALENTIN.
 
 [React Native]: <https://reactnative.dev/>
-[Source]: <https://www.frscan.me/>
+[Source]: <https://frscan.cc/>
