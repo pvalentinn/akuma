@@ -28,6 +28,6 @@ To come next :
 ## Author :
 Paul VALENTIN.
 
+<!-- portfolio -->
 [React Native]: <https://reactnative.dev/>
 [Source]: <https://frscan.cc/>
-[Auth]: "portfolio"
