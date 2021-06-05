@@ -7,7 +7,7 @@ It supports research, favorites, history and more ...
 The app is not out in public for now.  
 
 ## VISUAL :
-![](https://s5.gifyu.com/images/animW275.gif)
+![](https://s6.gifyu.com/images/ezgif.com-gif-maker-1cfd3a2f21a02663d.gif)
 
 ## FEATURES :
 Available features as of now :
